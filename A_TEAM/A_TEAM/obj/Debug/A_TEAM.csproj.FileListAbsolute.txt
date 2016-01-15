@@ -20,8 +20,8 @@ E:\GitHub\A_TEAM\A_TEAM\A_TEAM\bin\Debug\Neo4jClient.pdb
 E:\GitHub\A_TEAM\A_TEAM\A_TEAM\bin\Debug\Neo4jClient.xml
 E:\GitHub\A_TEAM\A_TEAM\A_TEAM\bin\Debug\Newtonsoft.Json.xml
 E:\GitHub\A_TEAM\A_TEAM\A_TEAM\obj\Debug\A_TEAM.csprojResolveAssemblyReference.cache
-E:\GitHub\A_TEAM\A_TEAM\A_TEAM\obj\Debug\A_TEAM.Adding_Person.resources
-E:\GitHub\A_TEAM\A_TEAM\A_TEAM\obj\Debug\A_TEAM.FDevelopment.resources
-E:\GitHub\A_TEAM\A_TEAM\A_TEAM\obj\Debug\A_TEAM.Form1.resources
 E:\GitHub\A_TEAM\A_TEAM\A_TEAM\obj\Debug\A_TEAM.Properties.Resources.resources
 E:\GitHub\A_TEAM\A_TEAM\A_TEAM\obj\Debug\A_TEAM.csproj.GenerateResource.Cache
+E:\GitHub\A_TEAM\A_TEAM\A_TEAM\obj\Debug\A_TEAM.FDodavanje_Radnika.resources
+E:\GitHub\A_TEAM\A_TEAM\A_TEAM\obj\Debug\A_TEAM.FDodavanje_Razvoja.resources
+E:\GitHub\A_TEAM\A_TEAM\A_TEAM\obj\Debug\A_TEAM.FNovi_Projekat.resources

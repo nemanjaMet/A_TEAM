@@ -9,15 +9,16 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Neo4jClient;
 using Neo4jClient.Cypher;
+using A_TEAM.DomainModel;
 
 namespace A_TEAM
 {
-    public partial class FDevelopment : Form
+    public partial class FDodavanje_Razvoja : Form
     {
 
         public GraphClient client;
 
-        public FDevelopment()
+        public FDodavanje_Razvoja()
         {
             InitializeComponent();
         }
@@ -38,6 +39,22 @@ namespace A_TEAM
             {
                 MessageBox.Show("Unesite opis development-a!");
                 return;
+            }
+
+            Razvoj noviRazvoj = new Razvoj();
+            noviRazvoj.Ime = ime;
+            noviRazvoj.Opis = opis;
+
+            try
+            {
+                client.Cypher
+                .Create("(razvoj:Razvoj {noviRazvoj})")
+                .WithParam("noviRazvoj", noviRazvoj)
+                .ExecuteWithoutResults();
+            }
+            catch (Exception ec)
+            {
+                MessageBox.Show(ec.ToString());
             }
 
             // Zatvaranje forme

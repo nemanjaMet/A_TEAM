@@ -9,13 +9,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Neo4jClient;
 using Neo4jClient.Cypher;
-
+using A_TEAM.DomainModel;
 
 namespace A_TEAM
 {
-    public partial class Form1 : Form
+    public partial class FNovi_Projekat : Form
     {
-        public Form1()
+        public FNovi_Projekat()
         {
             InitializeComponent();
         }
@@ -25,7 +25,7 @@ namespace A_TEAM
         // --- Pozivanje forme za dodavanje osobe ---
         private void BtnAddPerson_Click(object sender, EventArgs e)
         {
-            Adding_Person ap = new Adding_Person();
+            FDodavanje_Radnika ap = new FDodavanje_Radnika();
             ap.client = client;
             ap.ShowDialog();
         }
@@ -33,7 +33,7 @@ namespace A_TEAM
         // --- Pozivanje forme za dodavanje development-a ---
         private void button2_Click(object sender, EventArgs e)
         {
-            FDevelopment fd = new FDevelopment();
+            FDodavanje_Razvoja fd = new FDodavanje_Razvoja();
             fd.client = client;
             fd.ShowDialog();
         }
@@ -96,6 +96,66 @@ namespace A_TEAM
             {
                 MessageBox.Show(exc.Message);
             }
+        }
+
+        private void BtnSubmitDataPoject_Click(object sender, EventArgs e)
+        {
+            string imeProjekta = this.TbImeProjekta.Text;
+            string rokZavrsetka = this.DatePicker.Text;
+
+            // --- Izvlacimo podatke iz listView-a ----
+            List<string> lista = new List<string>();
+            foreach (ListViewItem lvi in LvPJezikZnanje.Items)
+            {
+                lista.Add(lvi.Text + " " + lvi.SubItems[1].Text);
+            }
+
+            if (String.IsNullOrWhiteSpace(imeProjekta))
+            {
+                MessageBox.Show("Napisite ime projekta!");
+            }
+            else if (String.IsNullOrWhiteSpace(rokZavrsetka))
+            {
+                MessageBox.Show("Datum kraja roka nije korektan!");
+            }
+            else if (lista.Count < 1)
+            {
+                MessageBox.Show("Lista potrebnih ljudi sa iskustvom je prazna!");
+            }
+
+            Projekat noviProjekat = new Projekat();
+            noviProjekat.Ime = imeProjekta;
+            noviProjekat.Rok_zavrsetka = rokZavrsetka;
+            noviProjekat.Potrebno_iskustvo = lista;
+
+            try
+            {
+                client.Cypher
+               .Create("(projekat:Projekat {noviProjekat})")
+               .WithParam("noviProjekat", noviProjekat)
+               .ExecuteWithoutResults();
+            }
+            catch (Exception ec)
+            {
+                MessageBox.Show(ec.ToString());
+            }
+
+            MessageBox.Show("Uspesno kreiran projekat!");
+            
+        }
+
+        private void BtnIzbrisiRadnika_Click(object sender, EventArgs e)
+        {
+            FBrisanje_Radnika fbr = new FBrisanje_Radnika();
+            fbr.client = client;
+            fbr.ShowDialog();
+        }
+
+        private void BtnIzbrisiRazvoj_Click(object sender, EventArgs e)
+        {
+            FBrisanje_Razvoja fbr = new FBrisanje_Razvoja();
+            fbr.client = client;
+            fbr.ShowDialog();
         }
     }
 }

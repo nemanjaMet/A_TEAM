@@ -13,12 +13,12 @@ using A_TEAM.DomainModel;
 
 namespace A_TEAM
 {
-    public partial class Adding_Person : Form
+    public partial class FDodavanje_Radnika : Form
     {
 
         public GraphClient client;
 
-        public Adding_Person()
+        public FDodavanje_Radnika()
         {
             InitializeComponent();
         }
@@ -76,6 +76,7 @@ namespace A_TEAM
             string prezime = this.TbPrezime.Text;
             string adresa = this.TbAdresa.Text;
             string datumRodjenja = this.DatePicker.Text;
+            string obrazovanje = this.TbObrazovanje.Text;
 
             // --- Provera da li postoje prazni textBoxovi
             if (String.IsNullOrWhiteSpace(ime))
@@ -91,6 +92,10 @@ namespace A_TEAM
             else if (String.IsNullOrWhiteSpace(adresa))
             {
                 MessageBox.Show("Unesi adresu!");
+            }
+            else if (String.IsNullOrWhiteSpace(obrazovanje))
+            {
+                MessageBox.Show("Unesi obrazovanje!");
             }
 
             // --- Preciscavanje blanko znaka ----
@@ -109,48 +114,32 @@ namespace A_TEAM
             // ---- Rad sa bazom (ubacivanje podataka) ---
             try
             {
-                Worker worker = new Worker();
+                Radnik noviRadnik = new Radnik();
 
                 // ********* NECEMO OVAKO ********* //
                 string maxId = getMaxId();
                 try
                 {
                     int mId = Int32.Parse(maxId);
-                    worker.id = (mId++).ToString();
+                    noviRadnik.id = (mId++).ToString();
                 }
                 catch (Exception exception)
                 {
-                    worker.id = "";
+                    noviRadnik.id = "";
                 }
                 // **************************** //
 
-                worker.ime = ime;
-                worker.prezime = prezime;
-                worker.adresa = adresa;
-                worker.datumRodjenja = datumRodjenja;
-                worker.jeziciZnanje = lista;
+                noviRadnik.Ime = ime;
+                noviRadnik.Prezime = prezime;
+                noviRadnik.Adresa = adresa;
+                noviRadnik.Datum_Rodjenja = datumRodjenja;
+                noviRadnik.Iskustvo = lista;
+                noviRadnik.Obrazovanje = obrazovanje;
 
-                /* var jsonWorker = Newtonsoft.Json.JsonConvert.SerializeObject(worker);
-                 client.Cypher
-                     .Create("(worker:Worker {jsonWorker})")
-                     .WithParam("jsonWorker", jsonWorker)
-                     .ExecuteWithoutResults();*/
-
-                Dictionary<string, object> queryDict = new Dictionary<string, object>();
-                queryDict.Add("Ime", worker.ime);
-                queryDict.Add("Prezime", worker.prezime);
-                queryDict.Add("Adresa", worker.adresa);
-                queryDict.Add("Datum_rodjenja", worker.datumRodjenja);
-                queryDict.Add("Programski_jezici_Znanje", worker.jeziciZnanje);
-
-                var query = new Neo4jClient.Cypher.CypherQuery("CREATE (n:Worker {id:'" + worker.id + "', Ime:'" + worker.ime
-                                                            + "', Prezime:'" + worker.prezime + "', Adresa:'" + worker.adresa
-
-                                                            + "', Programski_jezici_Znanje:'" + Newtonsoft.Json.JsonConvert.SerializeObject(worker.jeziciZnanje) + "', Datum_rodjenja:'" + worker.datumRodjenja + "'}) return n",
-                                                            queryDict, CypherResultMode.Set);
-                
-                // --- Execute Cypher without feedback ---
-                ((IRawGraphClient)client).ExecuteCypher(query);
+                client.Cypher
+                .Create("(radnik:Radnik {noviRadnik})")
+                .WithParam("noviRadnik", noviRadnik)
+                .ExecuteWithoutResults();
 
             }
             catch (Exception ec)
