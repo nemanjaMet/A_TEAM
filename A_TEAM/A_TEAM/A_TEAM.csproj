@@ -58,6 +58,7 @@
     <Compile Include="Adding_Person.Designer.cs">
       <DependentUpon>Adding_Person.cs</DependentUpon>
     </Compile>
+    <Compile Include="DomainModel\Worker.cs" />
     <Compile Include="FDevelopment.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -104,9 +105,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DomainModel\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

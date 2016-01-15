@@ -26,6 +26,7 @@ namespace A_TEAM
         private void BtnAddPerson_Click(object sender, EventArgs e)
         {
             Adding_Person ap = new Adding_Person();
+            ap.client = client;
             ap.ShowDialog();
         }
 
@@ -33,6 +34,7 @@ namespace A_TEAM
         private void button2_Click(object sender, EventArgs e)
         {
             FDevelopment fd = new FDevelopment();
+            fd.client = client;
             fd.ShowDialog();
         }
 

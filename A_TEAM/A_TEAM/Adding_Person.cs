@@ -7,11 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Neo4jClient;
+using Neo4jClient.Cypher;
+using A_TEAM.DomainModel;
 
 namespace A_TEAM
 {
     public partial class Adding_Person : Form
     {
+
+        public GraphClient client;
+
         public Adding_Person()
         {
             InitializeComponent();
@@ -100,9 +106,74 @@ namespace A_TEAM
                 lista.Add(lvi.Text + " " + lvi.SubItems[1].Text);
             }
 
+            // ---- Rad sa bazom (ubacivanje podataka) ---
+            try
+            {
+                Worker worker = new Worker();
+
+                // ********* NECEMO OVAKO ********* //
+                string maxId = getMaxId();
+                try
+                {
+                    int mId = Int32.Parse(maxId);
+                    worker.id = (mId++).ToString();
+                }
+                catch (Exception exception)
+                {
+                    worker.id = "";
+                }
+                // **************************** //
+
+                worker.ime = ime;
+                worker.prezime = prezime;
+                worker.adresa = adresa;
+                worker.datumRodjenja = datumRodjenja;
+                worker.jeziciZnanje = lista;
+
+                /* var jsonWorker = Newtonsoft.Json.JsonConvert.SerializeObject(worker);
+                 client.Cypher
+                     .Create("(worker:Worker {jsonWorker})")
+                     .WithParam("jsonWorker", jsonWorker)
+                     .ExecuteWithoutResults();*/
+
+                Dictionary<string, object> queryDict = new Dictionary<string, object>();
+                queryDict.Add("Ime", worker.ime);
+                queryDict.Add("Prezime", worker.prezime);
+                queryDict.Add("Adresa", worker.adresa);
+                queryDict.Add("Datum_rodjenja", worker.datumRodjenja);
+                queryDict.Add("Programski_jezici_Znanje", worker.jeziciZnanje);
+
+                var query = new Neo4jClient.Cypher.CypherQuery("CREATE (n:Worker {id:'" + worker.id + "', Ime:'" + worker.ime
+                                                            + "', Prezime:'" + worker.prezime + "', Adresa:'" + worker.adresa
+
+                                                            + "', Programski_jezici_Znanje:'" + Newtonsoft.Json.JsonConvert.SerializeObject(worker.jeziciZnanje) + "', Datum_rodjenja:'" + worker.datumRodjenja + "'}) return n",
+                                                            queryDict, CypherResultMode.Set);
+                
+                // --- Execute Cypher without feedback ---
+                ((IRawGraphClient)client).ExecuteCypher(query);
+
+            }
+            catch (Exception ec)
+            {
+                MessageBox.Show(ec.ToString());
+            }
 
             // Zatvaranje forme
             this.Dispose();
         }
+
+
+        // !!! COPY PASTO BOGDANOVIC !!! NE ZNAM KAKO RADI !!!
+        private String getMaxId()
+        {
+            var query = new Neo4jClient.Cypher.CypherQuery("start n=node(*) where has(n.id) return max(n.id)",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            String maxId = ((IRawGraphClient)client).ExecuteGetCypherResults<String>(query).ToList().FirstOrDefault();
+
+            return maxId;
+        }
+
+
     }
 }

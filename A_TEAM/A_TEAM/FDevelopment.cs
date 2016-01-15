@@ -7,11 +7,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Neo4jClient;
+using Neo4jClient.Cypher;
 
 namespace A_TEAM
 {
     public partial class FDevelopment : Form
     {
+
+        public GraphClient client;
+
         public FDevelopment()
         {
             InitializeComponent();
