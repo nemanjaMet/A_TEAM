@@ -36,6 +36,7 @@
             this.ColumnDatumRodjenja = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnObrazovanje = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnIskustvo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // BtnIzbrisiRadnika
@@ -47,10 +48,12 @@
             this.BtnIzbrisiRadnika.TabIndex = 0;
             this.BtnIzbrisiRadnika.Text = "Izrbisi radnika";
             this.BtnIzbrisiRadnika.UseVisualStyleBackColor = true;
+            this.BtnIzbrisiRadnika.Click += new System.EventHandler(this.BtnIzbrisiRadnika_Click);
             // 
             // LvSpisakRadnika
             // 
             this.LvSpisakRadnika.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnId,
             this.ColumnIme,
             this.ColumnPrezime,
             this.ColumnAdresa,
@@ -98,6 +101,10 @@
             this.ColumnIskustvo.Text = "Iskustvo";
             this.ColumnIskustvo.Width = 285;
             // 
+            // columnId
+            // 
+            this.columnId.Text = "ID";
+            // 
             // FBrisanje_Radnika
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -107,6 +114,7 @@
             this.Controls.Add(this.BtnIzbrisiRadnika);
             this.Name = "FBrisanje_Radnika";
             this.Text = "FBrisanje_Radnika";
+            this.Shown += new System.EventHandler(this.FBrisanje_Radnika_Shown);
             this.ResumeLayout(false);
 
         }
@@ -121,5 +129,6 @@
         private System.Windows.Forms.ColumnHeader ColumnDatumRodjenja;
         private System.Windows.Forms.ColumnHeader ColumnObrazovanje;
         private System.Windows.Forms.ColumnHeader ColumnIskustvo;
+        private System.Windows.Forms.ColumnHeader columnId;
     }
 }

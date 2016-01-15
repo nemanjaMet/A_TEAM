@@ -157,5 +157,47 @@ namespace A_TEAM
             fbr.client = client;
             fbr.ShowDialog();
         }
+
+        private void BtnVeze_Click(object sender, EventArgs e)
+        {
+            FVeze_radnika fvr = new FVeze_radnika();
+            fvr.client = client;
+            fvr.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {        
+
+            var query = new Neo4jClient.Cypher.CypherQuery("start n=node(*) where has(n.id) return max(n.id)",
+                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+
+            String maxId = ((IRawGraphClient)client).ExecuteGetCypherResults<String>(query).ToList().FirstOrDefault();
+
+           /* client.Cypher
+                .Start("(radnik:Radnik {noviRadnik})")
+                .Where("noviRadnik", noviRadnik)
+                .ExecuteWithoutResults();*/
+
+           /* string test = client.Cypher
+            .Match("(radnik:Radnik)")
+            .Where(((Radnik radnik) => radnik)
+            .Return(radnik => radnik)
+            .Results();*/
+
+            string rez = "";
+
+            try
+            {
+                int mId = Int32.Parse(maxId);
+                rez = (mId++).ToString();
+            }
+            catch (Exception exception)
+            {
+               rez = "";
+            }
+
+
+           // ap.ShowDialog();
+        }
     }
 }

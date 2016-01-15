@@ -25,3 +25,6 @@ E:\GitHub\A_TEAM\A_TEAM\A_TEAM\obj\Debug\A_TEAM.csproj.GenerateResource.Cache
 E:\GitHub\A_TEAM\A_TEAM\A_TEAM\obj\Debug\A_TEAM.FDodavanje_Radnika.resources
 E:\GitHub\A_TEAM\A_TEAM\A_TEAM\obj\Debug\A_TEAM.FDodavanje_Razvoja.resources
 E:\GitHub\A_TEAM\A_TEAM\A_TEAM\obj\Debug\A_TEAM.FNovi_Projekat.resources
+E:\GitHub\A_TEAM\A_TEAM\A_TEAM\obj\Debug\A_TEAM.FBrisanje_Radnika.resources
+E:\GitHub\A_TEAM\A_TEAM\A_TEAM\obj\Debug\A_TEAM.FBrisanje_Razvoja.resources
+E:\GitHub\A_TEAM\A_TEAM\A_TEAM\obj\Debug\A_TEAM.FVeze_radnika.resources

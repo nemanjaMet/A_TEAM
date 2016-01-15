@@ -31,6 +31,13 @@
             this.BtnAddPerson = new System.Windows.Forms.Button();
             this.BtnKreirajRazvoj = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.BtnIzbrisiRazvojIzListe = new System.Windows.Forms.Button();
+            this.BtnDodajRazvojUListu = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.ColumnRazvoj = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.ColumnBrojLjudi = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.CbBrojRadnika = new System.Windows.Forms.ComboBox();
+            this.CbRazvoj = new System.Windows.Forms.ComboBox();
             this.BtnRemoveFromListView = new System.Windows.Forms.Button();
             this.BtnSubmitToListView = new System.Windows.Forms.Button();
             this.LvPJezikZnanje = new System.Windows.Forms.ListView();
@@ -44,24 +51,22 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.CbRazvoj = new System.Windows.Forms.ComboBox();
-            this.CbBrojRadnika = new System.Windows.Forms.ComboBox();
-            this.listView1 = new System.Windows.Forms.ListView();
-            this.BtnDodajRazvojUListu = new System.Windows.Forms.Button();
-            this.BtnIzbrisiRazvojIzListe = new System.Windows.Forms.Button();
-            this.ColumnRazvoj = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.ColumnBrojLjudi = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.BtnIzbrisiRadnika = new System.Windows.Forms.Button();
             this.BtnIzbrisiRazvoj = new System.Windows.Forms.Button();
+            this.BtnVeze = new System.Windows.Forms.Button();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // BtnAddPerson
             // 
             this.BtnAddPerson.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnAddPerson.Location = new System.Drawing.Point(42, 31);
+            this.BtnAddPerson.Location = new System.Drawing.Point(31, 18);
             this.BtnAddPerson.Name = "BtnAddPerson";
-            this.BtnAddPerson.Size = new System.Drawing.Size(105, 23);
+            this.BtnAddPerson.Size = new System.Drawing.Size(122, 30);
             this.BtnAddPerson.TabIndex = 0;
             this.BtnAddPerson.Text = "Novi radnik";
             this.BtnAddPerson.UseVisualStyleBackColor = true;
@@ -70,9 +75,9 @@
             // BtnKreirajRazvoj
             // 
             this.BtnKreirajRazvoj.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnKreirajRazvoj.Location = new System.Drawing.Point(359, 31);
+            this.BtnKreirajRazvoj.Location = new System.Drawing.Point(31, 106);
             this.BtnKreirajRazvoj.Name = "BtnKreirajRazvoj";
-            this.BtnKreirajRazvoj.Size = new System.Drawing.Size(162, 23);
+            this.BtnKreirajRazvoj.Size = new System.Drawing.Size(127, 28);
             this.BtnKreirajRazvoj.TabIndex = 1;
             this.BtnKreirajRazvoj.Text = "Kreiraj razvoj";
             this.BtnKreirajRazvoj.UseVisualStyleBackColor = true;
@@ -97,10 +102,76 @@
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
-            this.panel1.Location = new System.Drawing.Point(42, 75);
+            this.panel1.Location = new System.Drawing.Point(12, 12);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(612, 389);
             this.panel1.TabIndex = 2;
+            // 
+            // BtnIzbrisiRazvojIzListe
+            // 
+            this.BtnIzbrisiRazvojIzListe.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnIzbrisiRazvojIzListe.Location = new System.Drawing.Point(26, 168);
+            this.BtnIzbrisiRazvojIzListe.Name = "BtnIzbrisiRazvojIzListe";
+            this.BtnIzbrisiRazvojIzListe.Size = new System.Drawing.Size(264, 27);
+            this.BtnIzbrisiRazvojIzListe.TabIndex = 15;
+            this.BtnIzbrisiRazvojIzListe.Text = "Izbrisi selektovani razvoj";
+            this.BtnIzbrisiRazvojIzListe.UseVisualStyleBackColor = true;
+            // 
+            // BtnDodajRazvojUListu
+            // 
+            this.BtnDodajRazvojUListu.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnDodajRazvojUListu.Location = new System.Drawing.Point(26, 133);
+            this.BtnDodajRazvojUListu.Name = "BtnDodajRazvojUListu";
+            this.BtnDodajRazvojUListu.Size = new System.Drawing.Size(264, 29);
+            this.BtnDodajRazvojUListu.TabIndex = 14;
+            this.BtnDodajRazvojUListu.Text = "Dodaj razvoj i broj ljudi";
+            this.BtnDodajRazvojUListu.UseVisualStyleBackColor = true;
+            // 
+            // listView1
+            // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.ColumnRazvoj,
+            this.ColumnBrojLjudi});
+            this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listView1.FullRowSelect = true;
+            this.listView1.GridLines = true;
+            this.listView1.Location = new System.Drawing.Point(26, 201);
+            this.listView1.MultiSelect = false;
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(264, 92);
+            this.listView1.TabIndex = 13;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // ColumnRazvoj
+            // 
+            this.ColumnRazvoj.Text = "Razvoj";
+            this.ColumnRazvoj.Width = 162;
+            // 
+            // ColumnBrojLjudi
+            // 
+            this.ColumnBrojLjudi.Text = "Broj ljudi";
+            this.ColumnBrojLjudi.Width = 75;
+            // 
+            // CbBrojRadnika
+            // 
+            this.CbBrojRadnika.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CbBrojRadnika.FormattingEnabled = true;
+            this.CbBrojRadnika.Location = new System.Drawing.Point(169, 106);
+            this.CbBrojRadnika.Name = "CbBrojRadnika";
+            this.CbBrojRadnika.Size = new System.Drawing.Size(121, 24);
+            this.CbBrojRadnika.TabIndex = 12;
+            this.CbBrojRadnika.Text = "Broj radnika";
+            // 
+            // CbRazvoj
+            // 
+            this.CbRazvoj.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CbRazvoj.FormattingEnabled = true;
+            this.CbRazvoj.Location = new System.Drawing.Point(26, 106);
+            this.CbRazvoj.Name = "CbRazvoj";
+            this.CbRazvoj.Size = new System.Drawing.Size(121, 24);
+            this.CbRazvoj.TabIndex = 11;
+            this.CbRazvoj.Text = "Izaberi razvoj";
             // 
             // BtnRemoveFromListView
             // 
@@ -246,78 +317,12 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Kreiranje novog projekta";
             // 
-            // CbRazvoj
-            // 
-            this.CbRazvoj.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CbRazvoj.FormattingEnabled = true;
-            this.CbRazvoj.Location = new System.Drawing.Point(26, 106);
-            this.CbRazvoj.Name = "CbRazvoj";
-            this.CbRazvoj.Size = new System.Drawing.Size(121, 24);
-            this.CbRazvoj.TabIndex = 11;
-            this.CbRazvoj.Text = "Izaberi razvoj";
-            // 
-            // CbBrojRadnika
-            // 
-            this.CbBrojRadnika.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CbBrojRadnika.FormattingEnabled = true;
-            this.CbBrojRadnika.Location = new System.Drawing.Point(169, 106);
-            this.CbBrojRadnika.Name = "CbBrojRadnika";
-            this.CbBrojRadnika.Size = new System.Drawing.Size(121, 24);
-            this.CbBrojRadnika.TabIndex = 12;
-            this.CbBrojRadnika.Text = "Broj radnika";
-            // 
-            // listView1
-            // 
-            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.ColumnRazvoj,
-            this.ColumnBrojLjudi});
-            this.listView1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.listView1.FullRowSelect = true;
-            this.listView1.GridLines = true;
-            this.listView1.Location = new System.Drawing.Point(26, 201);
-            this.listView1.MultiSelect = false;
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(264, 92);
-            this.listView1.TabIndex = 13;
-            this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.Details;
-            // 
-            // BtnDodajRazvojUListu
-            // 
-            this.BtnDodajRazvojUListu.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnDodajRazvojUListu.Location = new System.Drawing.Point(26, 133);
-            this.BtnDodajRazvojUListu.Name = "BtnDodajRazvojUListu";
-            this.BtnDodajRazvojUListu.Size = new System.Drawing.Size(264, 29);
-            this.BtnDodajRazvojUListu.TabIndex = 14;
-            this.BtnDodajRazvojUListu.Text = "Dodaj razvoj i broj ljudi";
-            this.BtnDodajRazvojUListu.UseVisualStyleBackColor = true;
-            // 
-            // BtnIzbrisiRazvojIzListe
-            // 
-            this.BtnIzbrisiRazvojIzListe.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnIzbrisiRazvojIzListe.Location = new System.Drawing.Point(26, 168);
-            this.BtnIzbrisiRazvojIzListe.Name = "BtnIzbrisiRazvojIzListe";
-            this.BtnIzbrisiRazvojIzListe.Size = new System.Drawing.Size(264, 27);
-            this.BtnIzbrisiRazvojIzListe.TabIndex = 15;
-            this.BtnIzbrisiRazvojIzListe.Text = "Izbrisi selektovani razvoj";
-            this.BtnIzbrisiRazvojIzListe.UseVisualStyleBackColor = true;
-            // 
-            // ColumnRazvoj
-            // 
-            this.ColumnRazvoj.Text = "Razvoj";
-            this.ColumnRazvoj.Width = 162;
-            // 
-            // ColumnBrojLjudi
-            // 
-            this.ColumnBrojLjudi.Text = "Broj ljudi";
-            this.ColumnBrojLjudi.Width = 75;
-            // 
             // BtnIzbrisiRadnika
             // 
             this.BtnIzbrisiRadnika.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnIzbrisiRadnika.Location = new System.Drawing.Point(153, 31);
+            this.BtnIzbrisiRadnika.Location = new System.Drawing.Point(31, 54);
             this.BtnIzbrisiRadnika.Name = "BtnIzbrisiRadnika";
-            this.BtnIzbrisiRadnika.Size = new System.Drawing.Size(110, 23);
+            this.BtnIzbrisiRadnika.Size = new System.Drawing.Size(122, 29);
             this.BtnIzbrisiRadnika.TabIndex = 3;
             this.BtnIzbrisiRadnika.Text = "Izbrisi radnika";
             this.BtnIzbrisiRadnika.UseVisualStyleBackColor = true;
@@ -326,29 +331,75 @@
             // BtnIzbrisiRazvoj
             // 
             this.BtnIzbrisiRazvoj.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnIzbrisiRazvoj.Location = new System.Drawing.Point(527, 31);
+            this.BtnIzbrisiRazvoj.Location = new System.Drawing.Point(31, 140);
             this.BtnIzbrisiRazvoj.Name = "BtnIzbrisiRazvoj";
-            this.BtnIzbrisiRazvoj.Size = new System.Drawing.Size(127, 23);
+            this.BtnIzbrisiRazvoj.Size = new System.Drawing.Size(127, 32);
             this.BtnIzbrisiRazvoj.TabIndex = 4;
             this.BtnIzbrisiRazvoj.Text = "Izbrisi razvoj";
             this.BtnIzbrisiRazvoj.UseVisualStyleBackColor = true;
             this.BtnIzbrisiRazvoj.Click += new System.EventHandler(this.BtnIzbrisiRazvoj_Click);
             // 
+            // BtnVeze
+            // 
+            this.BtnVeze.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnVeze.Location = new System.Drawing.Point(31, 199);
+            this.BtnVeze.Name = "BtnVeze";
+            this.BtnVeze.Size = new System.Drawing.Size(127, 44);
+            this.BtnVeze.TabIndex = 5;
+            this.BtnVeze.Text = "Kreiraj veze izmedju radnila";
+            this.BtnVeze.UseVisualStyleBackColor = true;
+            this.BtnVeze.Click += new System.EventHandler(this.BtnVeze_Click);
+            // 
+            // panel2
+            // 
+            this.panel2.BackColor = System.Drawing.Color.Yellow;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.button1);
+            this.panel2.Controls.Add(this.label4);
+            this.panel2.Controls.Add(this.BtnAddPerson);
+            this.panel2.Controls.Add(this.BtnVeze);
+            this.panel2.Controls.Add(this.BtnIzbrisiRadnika);
+            this.panel2.Controls.Add(this.BtnIzbrisiRazvoj);
+            this.panel2.Controls.Add(this.BtnKreirajRazvoj);
+            this.panel2.Location = new System.Drawing.Point(653, 14);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(182, 387);
+            this.panel2.TabIndex = 6;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(51, 267);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 7;
+            this.button1.Text = "TEST";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(-5, 334);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(185, 25);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "SAMO ZA DARKA";
+            // 
             // FNovi_Projekat
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(737, 476);
-            this.Controls.Add(this.BtnIzbrisiRazvoj);
-            this.Controls.Add(this.BtnIzbrisiRadnika);
-            this.Controls.Add(this.BtnAddPerson);
+            this.ClientSize = new System.Drawing.Size(857, 496);
+            this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.BtnKreirajRazvoj);
             this.Name = "FNovi_Projekat";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -380,6 +431,10 @@
         private System.Windows.Forms.ColumnHeader ColumnBrojLjudi;
         private System.Windows.Forms.Button BtnIzbrisiRadnika;
         private System.Windows.Forms.Button BtnIzbrisiRazvoj;
+        private System.Windows.Forms.Button BtnVeze;
+        private System.Windows.Forms.Panel panel2;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button button1;
     }
 }
 

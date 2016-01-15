@@ -23,5 +23,33 @@ namespace A_TEAM
         {
             InitializeComponent();
         }
+
+        private void BtnIzbrisiRazvoj_Click(object sender, EventArgs e)
+        {
+            // --- Provera da li je selektovano nesto u listView ---
+            if (LvSpisakRazvoja.SelectedItems.Count == 0)
+            {
+                MessageBox.Show("Selektujte neki razvoj!");
+                return;
+            }
+
+            try
+            {
+                string imeRazvoja = LvSpisakRazvoja.SelectedItems[0].Text;
+
+                // --- Brisanje razvoja iz baze i svih njegovih veza |*DetachDelete*| ---
+                    client.Cypher
+                    .Match("(razvoj:Razvoj)")
+                    .Where((Razvoj razvoj) => razvoj.Ime == imeRazvoja)
+                    .DetachDelete("razvoj")
+                    .ExecuteWithoutResults();
+
+                LvSpisakRazvoja.SelectedItems[0].Remove();
+            }
+            catch (Exception ec)
+            {
+                MessageBox.Show(ec.ToString());
+            }
+        }
     }
 }

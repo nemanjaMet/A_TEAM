@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.LvSpisakRazvoja = new System.Windows.Forms.ListView();
-            this.BtnIzbrisiRazvoj = new System.Windows.Forms.Button();
             this.ColumnIme = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnOpis = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.BtnIzbrisiRazvoj = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // LvSpisakRazvoja
@@ -50,16 +50,6 @@
             this.LvSpisakRazvoja.UseCompatibleStateImageBehavior = false;
             this.LvSpisakRazvoja.View = System.Windows.Forms.View.Details;
             // 
-            // BtnIzbrisiRazvoj
-            // 
-            this.BtnIzbrisiRazvoj.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnIzbrisiRazvoj.Location = new System.Drawing.Point(200, 293);
-            this.BtnIzbrisiRazvoj.Name = "BtnIzbrisiRazvoj";
-            this.BtnIzbrisiRazvoj.Size = new System.Drawing.Size(124, 23);
-            this.BtnIzbrisiRazvoj.TabIndex = 1;
-            this.BtnIzbrisiRazvoj.Text = "Izbrisi razvoj";
-            this.BtnIzbrisiRazvoj.UseVisualStyleBackColor = true;
-            // 
             // ColumnIme
             // 
             this.ColumnIme.Text = "Ime";
@@ -69,6 +59,17 @@
             // 
             this.ColumnOpis.Text = "Opis";
             this.ColumnOpis.Width = 258;
+            // 
+            // BtnIzbrisiRazvoj
+            // 
+            this.BtnIzbrisiRazvoj.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnIzbrisiRazvoj.Location = new System.Drawing.Point(136, 283);
+            this.BtnIzbrisiRazvoj.Name = "BtnIzbrisiRazvoj";
+            this.BtnIzbrisiRazvoj.Size = new System.Drawing.Size(188, 33);
+            this.BtnIzbrisiRazvoj.TabIndex = 1;
+            this.BtnIzbrisiRazvoj.Text = "Izbrisi razvoj";
+            this.BtnIzbrisiRazvoj.UseVisualStyleBackColor = true;
+            this.BtnIzbrisiRazvoj.Click += new System.EventHandler(this.BtnIzbrisiRazvoj_Click);
             // 
             // FBrisanje_Razvoja
             // 

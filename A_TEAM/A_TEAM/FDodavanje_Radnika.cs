@@ -153,11 +153,11 @@ namespace A_TEAM
 
 
         // !!! COPY PASTO BOGDANOVIC !!! NE ZNAM KAKO RADI !!!
-        private String getMaxId()
+        public String getMaxId()
         {
-            var query = new Neo4jClient.Cypher.CypherQuery("start n=node(*) where has(n.id) return max(n.id)",
+            var query = new Neo4jClient.Cypher.CypherQuery("start n=Radnik(*) where has(n.id) return max(n.id)",
                                                             new Dictionary<string, object>(), CypherResultMode.Set);
-
+            
             String maxId = ((IRawGraphClient)client).ExecuteGetCypherResults<String>(query).ToList().FirstOrDefault();
 
             return maxId;

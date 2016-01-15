@@ -85,6 +85,12 @@
     <Compile Include="FNovi_Projekat.Designer.cs">
       <DependentUpon>FNovi_Projekat.cs</DependentUpon>
     </Compile>
+    <Compile Include="FVeze_radnika.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FVeze_radnika.Designer.cs">
+      <DependentUpon>FVeze_radnika.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FBrisanje_Radnika.resx">
@@ -101,6 +107,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FNovi_Projekat.resx">
       <DependentUpon>FNovi_Projekat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FVeze_radnika.resx">
+      <DependentUpon>FVeze_radnika.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
