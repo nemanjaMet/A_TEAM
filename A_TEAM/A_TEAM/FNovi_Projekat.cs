@@ -62,6 +62,9 @@ namespace A_TEAM
                     lv1.SubItems.Add(znanjePJ);
                     LvPJezikZnanje.Items.Add(lv1);
 
+                    // --- Refresh comboBox ---
+                    CbProgramskiJezik.SelectedItem = null;
+                    CbZnanje.SelectedItem = null;
                     CbProgramskiJezik.Text = "Programski jezik";
                     CbZnanje.Text = "Znanje";
                 }
@@ -85,6 +88,7 @@ namespace A_TEAM
             }
         }
 
+        // --- Povezivanje sa bazom |*RED OR BLUE PILL #NeoMatrix*| ---
         private void Form1_Load(object sender, EventArgs e)
         {
             client = new GraphClient(new Uri("http://localhost:7474/db/data"), "neo4j", "edukacija");
@@ -98,6 +102,7 @@ namespace A_TEAM
             }
         }
 
+        // --- Ubacivanje podataka o Projektu u bazi ---
         private void BtnSubmitDataPoject_Click(object sender, EventArgs e)
         {
             string imeProjekta = this.TbImeProjekta.Text;
@@ -109,31 +114,65 @@ namespace A_TEAM
             {
                 lista.Add(lvi.Text + " " + lvi.SubItems[1].Text);
             }
+            List<string> listaRazvojaRadnika = new List<string>();
+            foreach (ListViewItem lvi in LvRazvojBrojRadnika.Items)
+            {
+                listaRazvojaRadnika.Add(lvi.Text + " " + lvi.SubItems[1].Text);
+            }
 
+            // --- Provera ispravnosti ---
             if (String.IsNullOrWhiteSpace(imeProjekta))
             {
                 MessageBox.Show("Napisite ime projekta!");
+                return;
             }
             else if (String.IsNullOrWhiteSpace(rokZavrsetka))
             {
                 MessageBox.Show("Datum kraja roka nije korektan!");
+                return;
             }
             else if (lista.Count < 1)
             {
                 MessageBox.Show("Lista potrebnih ljudi sa iskustvom je prazna!");
+                return;
+            }
+            else if (listaRazvojaRadnika.Count < 1)
+            {
+                MessageBox.Show("Lista potrebnih ljudi iz razvoja je prazna!");
+                //return;
             }
 
             Projekat noviProjekat = new Projekat();
             noviProjekat.Ime = imeProjekta;
             noviProjekat.Rok_zavrsetka = rokZavrsetka;
             noviProjekat.Potrebno_iskustvo = lista;
+            noviProjekat.Potrebni_ljudi_iz_razvoja = listaRazvojaRadnika;
 
             try
             {
-                client.Cypher
+                // --- Ubacivanje Projekta u bazi (pravi duplikate za isti projekat) ---
+                /*client.Cypher
                .Create("(projekat:Projekat {noviProjekat})")
                .WithParam("noviProjekat", noviProjekat)
-               .ExecuteWithoutResults();
+               .ExecuteWithoutResults();*/
+
+                // --- Ubacivanje Razvoja u bazi, ukoliko isti ne postoji ---
+                // NEMA FEEDBACK UKOLIKO ISTI RAZVOJ POSTOJI
+                client.Cypher
+                .Merge("(projekat:Projekat { Ime: {Ime} })")
+                .OnCreate()
+                .Set("projekat = {noviProjekat}")
+                .WithParams(new
+                {
+                    Ime = noviProjekat.Ime,
+                    noviProjekat
+                })
+                .ExecuteWithoutResults();
+
+                this.TbImeProjekta.Text = "";
+
+                MessageBox.Show("Uspesno kreiran novi Projekat!");
+                
             }
             catch (Exception ec)
             {
@@ -144,6 +183,7 @@ namespace A_TEAM
             
         }
 
+        // --- Pozivanje forme za brisanje Radnika ---
         private void BtnIzbrisiRadnika_Click(object sender, EventArgs e)
         {
             FBrisanje_Radnika fbr = new FBrisanje_Radnika();
@@ -151,6 +191,7 @@ namespace A_TEAM
             fbr.ShowDialog();
         }
 
+        // --- pozivanje forme za brisanje Razvoja ---
         private void BtnIzbrisiRazvoj_Click(object sender, EventArgs e)
         {
             FBrisanje_Razvoja fbr = new FBrisanje_Razvoja();
@@ -158,6 +199,7 @@ namespace A_TEAM
             fbr.ShowDialog();
         }
 
+        // --- Pozivanje forme za Veze Radnika ---
         private void BtnVeze_Click(object sender, EventArgs e)
         {
             FVeze_radnika fvr = new FVeze_radnika();
@@ -165,39 +207,92 @@ namespace A_TEAM
             fvr.ShowDialog();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {        
+        // --- Popunjava se comboBox podacima iz baze ---
+        private void CbRazvoj_MouseEnter(object sender, EventArgs e)
+        {
 
-            var query = new Neo4jClient.Cypher.CypherQuery("start n=node(*) where has(n.id) return max(n.id)",
-                                                            new Dictionary<string, object>(), CypherResultMode.Set);
-
-            String maxId = ((IRawGraphClient)client).ExecuteGetCypherResults<String>(query).ToList().FirstOrDefault();
-
-           /* client.Cypher
-                .Start("(radnik:Radnik {noviRadnik})")
-                .Where("noviRadnik", noviRadnik)
-                .ExecuteWithoutResults();*/
-
-           /* string test = client.Cypher
-            .Match("(radnik:Radnik)")
-            .Where(((Radnik radnik) => radnik)
-            .Return(radnik => radnik)
-            .Results();*/
-
-            string rez = "";
-
-            try
+            if (CbRazvoj.Items.Count < 1)
             {
-                int mId = Int32.Parse(maxId);
-                rez = (mId++).ToString();
-            }
-            catch (Exception exception)
-            {
-               rez = "";
-            }
+                IList<Razvoj> listaRazvoja = new List<Razvoj>();
+
+                try
+                {
+                    listaRazvoja = client.Cypher
+                    .Match("(razvoj:Razvoj)")
+                    .Return(razvoj => razvoj.As<Razvoj>())
+                    .Results.ToList();
 
 
-           // ap.ShowDialog();
+                    foreach (Razvoj razvoj in listaRazvoja)
+                    {
+                        CbRazvoj.Items.Add(razvoj.Ime);
+                    }
+                    //CbRazvoj.Items.AddRange(listaRazvoja.ToArray());
+
+                }
+                catch (Exception ec)
+                {
+                    MessageBox.Show(ec.ToString());
+                }
+            }
         }
+
+        // --- Dodaje Razvoj i broj radnika iz listView ---
+        private void BtnDodajRazvojUListu_Click(object sender, EventArgs e)
+        {
+            if (Convert.ToInt32(CbRazvoj.SelectedIndex) != -1 && Convert.ToInt32(CbBrojRadnika.SelectedIndex) != -1)
+            {
+                string razvoj = CbRazvoj.SelectedItem.ToString();
+                string brojRadnika = CbBrojRadnika.SelectedItem.ToString();
+                
+                ListViewItem lv1 = new ListViewItem(razvoj);
+                lv1.SubItems.Add(brojRadnika);
+                LvRazvojBrojRadnika.Items.Add(lv1);
+
+                // --- Refresh comboBox ---
+                CbRazvoj.SelectedItem = null;
+                CbBrojRadnika.SelectedItem = null;
+                CbRazvoj.Text = "Izaberi razvoj";
+                CbBrojRadnika.Text = "Broj radnika";
+
+                
+            }
+            else
+            {
+                MessageBox.Show("Izaberite razvoj i potreban broj radnika!");
+            }
+        }
+
+        // --- Brise Razvoj i broj radnika iz listView ---
+        private void BtnIzbrisiRazvojIzListe_Click(object sender, EventArgs e)
+        {
+            if (LvRazvojBrojRadnika.SelectedItems.Count != 0)
+            {
+                LvRazvojBrojRadnika.SelectedItems[0].Remove();
+            }
+        }
+
+        private void BtnBrisanjeVeza_Click(object sender, EventArgs e)
+        {
+            FBrisanje_Veza fbv = new FBrisanje_Veza();
+            fbv.client = client;
+            fbv.ShowDialog();
+        }
+
+        private void BtnBrisanjeProjekta_Click(object sender, EventArgs e)
+        {
+            FBrisanje_Projekta fbp = new FBrisanje_Projekta();
+            fbp.client = client;
+            fbp.ShowDialog();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            FVeza_Radnik_Razvoj fvrr = new FVeza_Radnik_Razvoj();
+            fvrr.client = client;
+            fvrr.ShowDialog();
+        }
+
+        
     }
 }

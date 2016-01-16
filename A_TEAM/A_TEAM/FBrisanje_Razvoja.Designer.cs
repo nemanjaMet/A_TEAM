@@ -39,6 +39,7 @@
             this.LvSpisakRazvoja.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ColumnIme,
             this.ColumnOpis});
+            this.LvSpisakRazvoja.Enabled = false;
             this.LvSpisakRazvoja.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LvSpisakRazvoja.FullRowSelect = true;
             this.LvSpisakRazvoja.GridLines = true;
@@ -80,6 +81,7 @@
             this.Controls.Add(this.LvSpisakRazvoja);
             this.Name = "FBrisanje_Razvoja";
             this.Text = "FBrisanje_Razvoja";
+            this.Shown += new System.EventHandler(this.FBrisanje_Razvoja_Shown);
             this.ResumeLayout(false);
 
         }

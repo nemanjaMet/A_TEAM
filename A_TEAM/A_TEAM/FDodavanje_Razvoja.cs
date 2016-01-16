@@ -47,9 +47,23 @@ namespace A_TEAM
 
             try
             {
-                client.Cypher
+                // --- Ubacivanje Razvoja u bazi (pravi duplikate za isti razvoj) ---
+                /*client.Cypher
                 .Create("(razvoj:Razvoj {noviRazvoj})")
                 .WithParam("noviRazvoj", noviRazvoj)
+                .ExecuteWithoutResults();*/
+
+                // --- Ubacivanje Razvoja u bazi, ukoliko isti ne postoji ---
+                // NEMA FEEDBACK UKOLIKO ISTI RAZVOJ POSTOJI
+                client.Cypher
+                .Merge("(razvoj:Razvoj { Ime: {Ime} })")
+                .OnCreate()
+                .Set("razvoj = {noviRazvoj}")
+                .WithParams(new
+                {
+                    Ime = noviRazvoj.Ime,
+                    noviRazvoj
+                })
                 .ExecuteWithoutResults();
             }
             catch (Exception ec)

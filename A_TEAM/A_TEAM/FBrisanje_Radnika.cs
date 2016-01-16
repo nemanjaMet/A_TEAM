@@ -56,6 +56,8 @@ namespace A_TEAM
                    LvSpisakRadnika.Items.Add(lv1);
                }
 
+               LvSpisakRadnika.Enabled = true;
+                
             }
             catch (Exception ec)
             {
@@ -63,19 +65,20 @@ namespace A_TEAM
             }
         }
 
+        // --- Brisanje radnika iz baze ---
         private void BtnIzbrisiRadnika_Click(object sender, EventArgs e)
         {
             // --- Provera da li je nesto seletovano u listi ---
             if (LvSpisakRadnika.SelectedItems.Count != 0)
             {
-                string imeRadnika = LvSpisakRadnika.SelectedItems[0].SubItems[1].Text;
+                string idRadnika = LvSpisakRadnika.SelectedItems[0].SubItems[0].Text;
                 try
                 {
                     
                     // --- Brisanje radnika iz baze i svih njegovih veza |*DetachDelete*| ---
                      client.Cypher
                     .Match("(radnik:Radnik)")
-                    .Where((Radnik radnik) => radnik.Ime == imeRadnika)
+                    .Where((Radnik radnik) => radnik.id == idRadnika)
                     .DetachDelete("radnik")
                     .ExecuteWithoutResults();
 

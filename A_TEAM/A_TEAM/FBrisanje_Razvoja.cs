@@ -24,6 +24,7 @@ namespace A_TEAM
             InitializeComponent();
         }
 
+        // --- Brisanje Razvoja iz baze ---
         private void BtnIzbrisiRazvoj_Click(object sender, EventArgs e)
         {
             // --- Provera da li je selektovano nesto u listView ---
@@ -44,7 +45,37 @@ namespace A_TEAM
                     .DetachDelete("razvoj")
                     .ExecuteWithoutResults();
 
+                // --- Brisanje iz listView ----
                 LvSpisakRazvoja.SelectedItems[0].Remove();
+            }
+            catch (Exception ec)
+            {
+                MessageBox.Show(ec.ToString());
+            }
+        }
+
+        // --- Popunjavanje listView Razvojima ---
+        private void FBrisanje_Razvoja_Shown(object sender, EventArgs e)
+        {
+            try
+            {
+                IList<Razvoj> listaRazvoja = new List<Razvoj>();
+
+                listaRazvoja = client.Cypher
+                .Match("(razvoj:Razvoj)")
+                .Return(razvoj => razvoj.As<Razvoj>())
+                .Results.ToList();
+
+                foreach (Razvoj r in listaRazvoja)
+                {
+                    ListViewItem lv1 = new ListViewItem(r.Ime);
+                    lv1.SubItems.Add(r.Opis);
+
+                    LvSpisakRazvoja.Items.Add(lv1);
+                }
+
+                LvSpisakRazvoja.Enabled = true;
+
             }
             catch (Exception ec)
             {

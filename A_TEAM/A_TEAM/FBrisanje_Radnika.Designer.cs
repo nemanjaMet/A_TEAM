@@ -30,13 +30,13 @@
         {
             this.BtnIzbrisiRadnika = new System.Windows.Forms.Button();
             this.LvSpisakRadnika = new System.Windows.Forms.ListView();
+            this.columnId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnIme = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnPrezime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnAdresa = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnDatumRodjenja = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnObrazovanje = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnIskustvo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // BtnIzbrisiRadnika
@@ -60,6 +60,7 @@
             this.ColumnDatumRodjenja,
             this.ColumnObrazovanje,
             this.ColumnIskustvo});
+            this.LvSpisakRadnika.Enabled = false;
             this.LvSpisakRadnika.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.LvSpisakRadnika.FullRowSelect = true;
             this.LvSpisakRadnika.GridLines = true;
@@ -70,6 +71,11 @@
             this.LvSpisakRadnika.TabIndex = 1;
             this.LvSpisakRadnika.UseCompatibleStateImageBehavior = false;
             this.LvSpisakRadnika.View = System.Windows.Forms.View.Details;
+            // 
+            // columnId
+            // 
+            this.columnId.Text = "ID";
+            this.columnId.Width = 0;
             // 
             // ColumnIme
             // 
@@ -100,10 +106,6 @@
             // 
             this.ColumnIskustvo.Text = "Iskustvo";
             this.ColumnIskustvo.Width = 285;
-            // 
-            // columnId
-            // 
-            this.columnId.Text = "ID";
             // 
             // FBrisanje_Radnika
             // 

@@ -52,6 +52,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FBrisanje_Veza.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBrisanje_Veza.Designer.cs">
+      <DependentUpon>FBrisanje_Veza.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FBrisanje_Projekta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBrisanje_Projekta.Designer.cs">
+      <DependentUpon>FBrisanje_Projekta.cs</DependentUpon>
+    </Compile>
     <Compile Include="FBrisanje_Radnika.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +97,12 @@
     <Compile Include="FNovi_Projekat.Designer.cs">
       <DependentUpon>FNovi_Projekat.cs</DependentUpon>
     </Compile>
+    <Compile Include="FVeza_Radnik_Razvoj.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FVeza_Radnik_Razvoj.Designer.cs">
+      <DependentUpon>FVeza_Radnik_Razvoj.cs</DependentUpon>
+    </Compile>
     <Compile Include="FVeze_radnika.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -93,6 +111,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FBrisanje_Veza.resx">
+      <DependentUpon>FBrisanje_Veza.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FBrisanje_Projekta.resx">
+      <DependentUpon>FBrisanje_Projekta.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FBrisanje_Radnika.resx">
       <DependentUpon>FBrisanje_Radnika.cs</DependentUpon>
     </EmbeddedResource>
@@ -107,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="FNovi_Projekat.resx">
       <DependentUpon>FNovi_Projekat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FVeza_Radnik_Razvoj.resx">
+      <DependentUpon>FVeza_Radnik_Razvoj.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FVeze_radnika.resx">
       <DependentUpon>FVeze_radnika.cs</DependentUpon>

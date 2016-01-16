@@ -47,6 +47,8 @@ namespace A_TEAM
                     lv1.SubItems.Add(znanjePJ);
                     LvPJ_Z.Items.Add(lv1);
 
+                    CbProgrammingLanguages.SelectedItem = null;
+                    CbZnanjePJ.SelectedItem = null;
                     CbProgrammingLanguages.Text = "Programski jezik";
                     CbZnanjePJ.Text = "Znanje";
                 }
@@ -70,6 +72,7 @@ namespace A_TEAM
             }
         }
 
+        // --- Ubacivanje Radnika u bazi ---
         private void BtnSubmitData_Click(object sender, EventArgs e)
         {
             string ime = this.TbIme.Text;
@@ -114,21 +117,16 @@ namespace A_TEAM
             // ---- Rad sa bazom (ubacivanje podataka) ---
             try
             {
+                // --- Kreiramo ID za radnika ----
+                string idRadnika = getMaxId();
+                if (idRadnika == "null")
+                {
+                    return;
+                }
+
                 Radnik noviRadnik = new Radnik();
-
-                // ********* NECEMO OVAKO ********* //
-                string maxId = getMaxId();
-                try
-                {
-                    int mId = Int32.Parse(maxId);
-                    noviRadnik.id = (mId++).ToString();
-                }
-                catch (Exception exception)
-                {
-                    noviRadnik.id = "";
-                }
-                // **************************** //
-
+                //noviRadnik.id = idRadnika;
+                noviRadnik.id = idRadnika;
                 noviRadnik.Ime = ime;
                 noviRadnik.Prezime = prezime;
                 noviRadnik.Adresa = adresa;
@@ -136,9 +134,23 @@ namespace A_TEAM
                 noviRadnik.Iskustvo = lista;
                 noviRadnik.Obrazovanje = obrazovanje;
 
-                client.Cypher
+                // --- Kreiranje radnika u bazi (za isti ID, pravi duplikate) ---
+                /*client.Cypher
                 .Create("(radnik:Radnik {noviRadnik})")
                 .WithParam("noviRadnik", noviRadnik)
+                .ExecuteWithoutResults();*/
+
+                // --- Kreiranje radnika ukoliko isti ne postoji u bazi ---
+                // NEMA FEEDBACK UKOLIKO ISTI ID POSTOJI
+                client.Cypher
+                .Merge("(radnik:Radnik { id: {id} })")
+                .OnCreate()
+                .Set("radnik = {noviRadnik}")
+                .WithParams(new
+                {
+                    id = noviRadnik.id,
+                    noviRadnik
+                })
                 .ExecuteWithoutResults();
 
             }
@@ -151,18 +163,34 @@ namespace A_TEAM
             this.Dispose();
         }
 
-
-        // !!! COPY PASTO BOGDANOVIC !!! NE ZNAM KAKO RADI !!!
-        public String getMaxId()
+        // --- Vraca najveci ID Radnika ---
+        private String getMaxId()
         {
-            var query = new Neo4jClient.Cypher.CypherQuery("start n=Radnik(*) where has(n.id) return max(n.id)",
-                                                            new Dictionary<string, object>(), CypherResultMode.Set);
-            
-            String maxId = ((IRawGraphClient)client).ExecuteGetCypherResults<String>(query).ToList().FirstOrDefault();
+            string maxId = "";
+            try
+            {
+                // --- Upit za poslednji ID Radnika ubacen u bazi ---
+                 maxId = client.Cypher
+                .Match("(n:Radnik)")
+                .Return(() => Return.As<string>("max(n.id)"))
+                .Results
+                .Single();
 
-            return maxId;
+                // --- Ukoliko ne postoji ni jedan radnik u bazi ---
+                 if (String.IsNullOrWhiteSpace(maxId))
+                 {
+                     maxId = "0";
+                 }
+
+                 maxId = (Convert.ToInt64(maxId) + 1).ToString();
+                 return maxId;
+            }
+            catch (Exception ec)
+            {
+                MessageBox.Show(ec.ToString());
+                return maxId = "null";
+            }
         }
-
 
     }
 }
