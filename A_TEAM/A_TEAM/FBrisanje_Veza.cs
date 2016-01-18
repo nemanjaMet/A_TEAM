@@ -31,17 +31,76 @@ namespace A_TEAM.DomainModel
                 // --- Provera da se ne pozivaju vise upita za istog radnika ---
                 if (IDRadnika != poslednjiSelektovani)
                 {
+                    // --- Klirujemo listViews za nove podatke ---
+                    LvSpisakSlazeSe.Items.Clear();
+                    LvNeutralan.Items.Clear();
+                    LvNeSlazeSe.Items.Clear();
+                    LvSpisakRazvoja.Items.Clear();
+
                     try
                     {
-                        // --- UPITI ZA TRAZENJE VEZA ZA DATOG RADNIKA ---
-                        
-                        // ******** MESTA ZA PERU DA MOZE DA RADI :) **************
+                        // --- UPITI ZA TRAZENJE VEZA ZA SELEKTOVANOG RADNIKA ---                  
+                        // --- Trazi veze izmedju radnika (SLAZE_SE, NEUTRALAN, NE_SLAZE_SE) ---
+                        var query = client.Cypher
+                        .Match("(n:Radnik)-[r]->(m:Radnik)")
+                        .Where((Radnik n) => n.id == IDRadnika)
+                        .Return((n, r, m) => new
+                         {
+                         N = n.As<Radnik>(),
+                         M = m.As<Radnik>(),
+                         R = r.As<RelationshipInstance<object>>()
+                        });
 
-                        // --- Klirujemo listViews za nove podatke ---
-                        LvSpisakSlazeSe.Items.Clear();
-                        LvNeutralan.Items.Clear();
-                        LvNeSlazeSe.Items.Clear();
-                        LvSpisakRazvoja.Items.Clear();
+                        // --- Popunjavamo liste za veze sa radnicima ---
+                        var res = query.Results;
+                        foreach (var item in res.ToList())
+                        {
+                            ListViewItem lv = new ListViewItem(item.M.id);
+                            lv.SubItems.Add(item.M.Ime);
+                            lv.SubItems.Add(item.M.Prezime);
+                            var veza = item.R.TypeKey;
+
+                            if (veza == "SLAZE_SE")
+                            {
+                                LvSpisakSlazeSe.Items.Add(lv);
+                            }
+                            else if (veza == "NEUTRALAN")
+                            {
+                                LvNeutralan.Items.Add(lv);
+                            }
+                            else if (veza == "NE_SLAZE_SE")
+                            {
+                                LvNeSlazeSe.Items.Add(lv);
+                            }
+                        }
+
+                        // --- Upit za vracanje razvoja u kojem selektovani radnik radi ---
+                        var query1 = client.Cypher
+                       .Match("(n:Radnik)-[r]->(m:Razvoj)")
+                       .Where((Radnik n) => n.id == IDRadnika)
+                       .Return((n, r, m) => new
+                       {
+                           N = n.As<Radnik>(),
+                           M = m.As<Razvoj>(),
+                           R = r.As<RelationshipInstance<object>>()
+                       });
+
+                        // --- Popunjavamo listu za razvoj sa Razvojima ----
+                        var res1 = query1.Results;
+                        foreach (var item in res1.ToList())
+                        {
+                            ListViewItem lv = new ListViewItem(item.M.Ime);
+                            lv.SubItems.Add(item.M.Opis);
+                            var veza = item.R.TypeKey;
+                            LvSpisakRazvoja.Items.Add(lv);
+                        }
+
+                        // --- Otkljucavamo liste (nema nikakvu svrhu, ali smo u mogucnosti :) ) ---
+                        LvSpisakSlazeSe.Enabled = true;
+                        LvNeutralan.Enabled = true;
+                        LvNeSlazeSe.Enabled = true;
+                        LvSpisakRazvoja.Enabled = true;
+                        
                     }
                     catch (Exception ec)
                     {
@@ -65,9 +124,18 @@ namespace A_TEAM.DomainModel
             if (LvSpisakSlazeSe.SelectedItems.Count != 0)
             {
                 string IDRadnika = LvSpisakSlazeSe.SelectedItems[0].SubItems[0].Text;
+                string IDRadnika1 = LvSpisakRadnika.SelectedItems[0].SubItems[0].Text;
                 try
                 {
-                    // ************ MESTA ZA PERU **************
+                   
+                    // --- Upit za brisanje veze ---
+                    client.Cypher.Match("(radnik1:Radnik)-[r]->(radnik2:Radnik) ")
+                        .Where((Radnik radnik1) => radnik1.id == IDRadnika1)
+                        .AndWhere((Radnik radnik2) => radnik2.id == IDRadnika)
+                        .Delete("r")
+                        .ExecuteWithoutResults();
+
+                    LvSpisakSlazeSe.SelectedItems[0].Remove();
                 }
                 catch (Exception ec)
                 {
@@ -86,9 +154,17 @@ namespace A_TEAM.DomainModel
             if (LvNeutralan.SelectedItems.Count != 0)
             {
                 string IDRadnika = LvNeutralan.SelectedItems[0].SubItems[0].Text;
+                string IDRadnika1 = LvSpisakRadnika.SelectedItems[0].SubItems[0].Text;
                 try
                 {
-                    // ************ MESTA ZA PERU **************
+                    // --- Upit za brisanje veze ---
+                    client.Cypher.Match("(radnik1:Radnik)-[r]->(radnik2:Radnik) ")
+                        .Where((Radnik radnik1) => radnik1.id == IDRadnika1)
+                        .AndWhere((Radnik radnik2) => radnik2.id == IDRadnika)
+                        .Delete("r")
+                        .ExecuteWithoutResults();
+
+                    LvNeutralan.SelectedItems[0].Remove();
                 }
                 catch (Exception ec)
                 {
@@ -107,9 +183,17 @@ namespace A_TEAM.DomainModel
             if (LvNeSlazeSe.SelectedItems.Count != 0)
             {
                 string IDRadnika = LvNeSlazeSe.SelectedItems[0].SubItems[0].Text;
+                string IDRadnika1 = LvSpisakRadnika.SelectedItems[0].SubItems[0].Text;
                 try
                 {
-                    // ************ MESTA ZA PERU **************
+                    // --- Upit za brisanje veze ----
+                    client.Cypher.Match("(radnik1:Radnik)-[r]->(radnik2:Radnik) ")
+                         .Where((Radnik radnik1) => radnik1.id == IDRadnika1)
+                         .AndWhere((Radnik radnik2) => radnik2.id == IDRadnika)
+                         .Delete("r")
+                         .ExecuteWithoutResults();
+
+                    LvNeSlazeSe.SelectedItems[0].Remove();
                 }
                 catch (Exception ec)
                 {
@@ -128,9 +212,17 @@ namespace A_TEAM.DomainModel
             if (LvSpisakRazvoja.SelectedItems.Count != 0)
             {
                 string imeRazvoja = LvSpisakRazvoja.SelectedItems[0].SubItems[0].Text;
+                string IDRadnika1 = LvSpisakRadnika.SelectedItems[0].SubItems[0].Text;
                 try
                 {
-                    // ************ MESTA ZA PERU **************
+                    // --- Upit za brisanje veze ---
+                    client.Cypher.Match("(radnik1:Radnik)-[r]->(razvoj1:Razvoj) ")
+                        .Where((Radnik radnik1) => radnik1.id == IDRadnika1)
+                        .AndWhere((Razvoj razvoj1) => razvoj1.Ime == imeRazvoja)
+                        .Delete("r")
+                        .ExecuteWithoutResults();
+
+                    LvSpisakRazvoja.SelectedItems[0].Remove();
                 }
                 catch (Exception ec)
                 {

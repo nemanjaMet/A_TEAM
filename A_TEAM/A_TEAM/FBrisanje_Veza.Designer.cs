@@ -37,9 +37,20 @@
             this.ColumnObrazovanje = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.ColumnIskustvo = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LvSpisakSlazeSe = new System.Windows.Forms.ListView();
+            this.columnSlazeSeID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnSlazeSeIme = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnSlazeSePrezime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LvNeutralan = new System.Windows.Forms.ListView();
+            this.columnNeutralanID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnNeutralanIme = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnNeutralanPrezime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LvNeSlazeSe = new System.Windows.Forms.ListView();
+            this.columnNeSlazeSeId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnNeSlazeSeIme = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnNeSlazeSePrezime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.LvSpisakRazvoja = new System.Windows.Forms.ListView();
+            this.columnRazvojIme = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnRazvojOpis = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.BtnPogledajSelektovanogRadnika = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -49,17 +60,6 @@
             this.BtnIzbrisiVezuNeutralan = new System.Windows.Forms.Button();
             this.BtnIzbrisiVezuNeSlazeSe = new System.Windows.Forms.Button();
             this.BtnIzbrisiVezuKaRazvoju = new System.Windows.Forms.Button();
-            this.columnSlazeSeID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnSlazeSeIme = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnSlazeSePrezime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnNeutralanID = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnNeutralanIme = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnNeutralanPrezime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnNeSlazeSeId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnNeSlazeSeIme = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnNeSlazeSePrezime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnRazvojIme = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnRazvojOpis = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // LvSpisakRadnika
@@ -125,7 +125,6 @@
             this.columnSlazeSeID,
             this.columnSlazeSeIme,
             this.columnSlazeSePrezime});
-            this.LvSpisakSlazeSe.Enabled = false;
             this.LvSpisakSlazeSe.FullRowSelect = true;
             this.LvSpisakSlazeSe.GridLines = true;
             this.LvSpisakSlazeSe.Location = new System.Drawing.Point(12, 283);
@@ -136,13 +135,27 @@
             this.LvSpisakSlazeSe.UseCompatibleStateImageBehavior = false;
             this.LvSpisakSlazeSe.View = System.Windows.Forms.View.Details;
             // 
+            // columnSlazeSeID
+            // 
+            this.columnSlazeSeID.Text = "ID";
+            this.columnSlazeSeID.Width = 0;
+            // 
+            // columnSlazeSeIme
+            // 
+            this.columnSlazeSeIme.Text = "Ime";
+            this.columnSlazeSeIme.Width = 79;
+            // 
+            // columnSlazeSePrezime
+            // 
+            this.columnSlazeSePrezime.Text = "Prezime";
+            this.columnSlazeSePrezime.Width = 117;
+            // 
             // LvNeutralan
             // 
             this.LvNeutralan.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnNeutralanID,
             this.columnNeutralanIme,
             this.columnNeutralanPrezime});
-            this.LvNeutralan.Enabled = false;
             this.LvNeutralan.FullRowSelect = true;
             this.LvNeutralan.GridLines = true;
             this.LvNeutralan.Location = new System.Drawing.Point(229, 283);
@@ -153,13 +166,27 @@
             this.LvNeutralan.UseCompatibleStateImageBehavior = false;
             this.LvNeutralan.View = System.Windows.Forms.View.Details;
             // 
+            // columnNeutralanID
+            // 
+            this.columnNeutralanID.Text = "ID";
+            this.columnNeutralanID.Width = 2;
+            // 
+            // columnNeutralanIme
+            // 
+            this.columnNeutralanIme.Text = "Ime";
+            this.columnNeutralanIme.Width = 92;
+            // 
+            // columnNeutralanPrezime
+            // 
+            this.columnNeutralanPrezime.Text = "Prezime";
+            this.columnNeutralanPrezime.Width = 116;
+            // 
             // LvNeSlazeSe
             // 
             this.LvNeSlazeSe.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnNeSlazeSeId,
             this.columnNeSlazeSeIme,
             this.columnNeSlazeSePrezime});
-            this.LvNeSlazeSe.Enabled = false;
             this.LvNeSlazeSe.FullRowSelect = true;
             this.LvNeSlazeSe.GridLines = true;
             this.LvNeSlazeSe.Location = new System.Drawing.Point(454, 283);
@@ -170,12 +197,25 @@
             this.LvNeSlazeSe.UseCompatibleStateImageBehavior = false;
             this.LvNeSlazeSe.View = System.Windows.Forms.View.Details;
             // 
+            // columnNeSlazeSeId
+            // 
+            this.columnNeSlazeSeId.Text = "ID";
+            this.columnNeSlazeSeId.Width = 0;
+            // 
+            // columnNeSlazeSeIme
+            // 
+            this.columnNeSlazeSeIme.Text = "Ime";
+            // 
+            // columnNeSlazeSePrezime
+            // 
+            this.columnNeSlazeSePrezime.Text = "Prezime";
+            this.columnNeSlazeSePrezime.Width = 133;
+            // 
             // LvSpisakRazvoja
             // 
             this.LvSpisakRazvoja.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnRazvojIme,
             this.columnRazvojOpis});
-            this.LvSpisakRazvoja.Enabled = false;
             this.LvSpisakRazvoja.FullRowSelect = true;
             this.LvSpisakRazvoja.GridLines = true;
             this.LvSpisakRazvoja.Location = new System.Drawing.Point(666, 283);
@@ -185,6 +225,16 @@
             this.LvSpisakRazvoja.TabIndex = 6;
             this.LvSpisakRazvoja.UseCompatibleStateImageBehavior = false;
             this.LvSpisakRazvoja.View = System.Windows.Forms.View.Details;
+            // 
+            // columnRazvojIme
+            // 
+            this.columnRazvojIme.Text = "Ime";
+            this.columnRazvojIme.Width = 91;
+            // 
+            // columnRazvojOpis
+            // 
+            this.columnRazvojOpis.Text = "Opis";
+            this.columnRazvojOpis.Width = 98;
             // 
             // BtnPogledajSelektovanogRadnika
             // 
@@ -280,60 +330,6 @@
             this.BtnIzbrisiVezuKaRazvoju.Text = "Izbrisi vezu ka razvoju";
             this.BtnIzbrisiVezuKaRazvoju.UseVisualStyleBackColor = true;
             this.BtnIzbrisiVezuKaRazvoju.Click += new System.EventHandler(this.BtnIzbrisiVezuKaRazvoju_Click);
-            // 
-            // columnSlazeSeID
-            // 
-            this.columnSlazeSeID.Text = "ID";
-            this.columnSlazeSeID.Width = 0;
-            // 
-            // columnSlazeSeIme
-            // 
-            this.columnSlazeSeIme.Text = "Ime";
-            this.columnSlazeSeIme.Width = 79;
-            // 
-            // columnSlazeSePrezime
-            // 
-            this.columnSlazeSePrezime.Text = "Prezime";
-            this.columnSlazeSePrezime.Width = 117;
-            // 
-            // columnNeutralanID
-            // 
-            this.columnNeutralanID.Text = "ID";
-            this.columnNeutralanID.Width = 2;
-            // 
-            // columnNeutralanIme
-            // 
-            this.columnNeutralanIme.Text = "Ime";
-            this.columnNeutralanIme.Width = 92;
-            // 
-            // columnNeutralanPrezime
-            // 
-            this.columnNeutralanPrezime.Text = "Prezime";
-            this.columnNeutralanPrezime.Width = 116;
-            // 
-            // columnNeSlazeSeId
-            // 
-            this.columnNeSlazeSeId.Text = "ID";
-            this.columnNeSlazeSeId.Width = 0;
-            // 
-            // columnNeSlazeSeIme
-            // 
-            this.columnNeSlazeSeIme.Text = "Ime";
-            // 
-            // columnNeSlazeSePrezime
-            // 
-            this.columnNeSlazeSePrezime.Text = "Prezime";
-            this.columnNeSlazeSePrezime.Width = 133;
-            // 
-            // columnRazvojIme
-            // 
-            this.columnRazvojIme.Text = "Ime";
-            this.columnRazvojIme.Width = 91;
-            // 
-            // columnRazvojOpis
-            // 
-            this.columnRazvojOpis.Text = "Opis";
-            this.columnRazvojOpis.Width = 98;
             // 
             // FBrisanje_Veza
             // 

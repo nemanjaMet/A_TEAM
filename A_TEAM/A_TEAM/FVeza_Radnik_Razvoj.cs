@@ -32,7 +32,14 @@ namespace A_TEAM
 
                 try
                 {
-                    // ********** MESTA ZA PERU ****************
+                    // --- Upit za kreiranje veze 'RADI_U' izmedju Radnika i Razvoja
+                    client.Cypher.Match("(radnik1:Radnik)", "(razvoj1:Razvoj)")
+                        .Where((Radnik radnik1) => radnik1.id == idRadnika)
+                        .AndWhere((Razvoj razvoj1) => razvoj1.Ime == imeRazvoja)
+                        .CreateUnique("radnik1-[:RADI_U]->razvoj1")
+                        .ExecuteWithoutResults();
+
+                    MessageBox.Show("Uspesno kreirana veza!");
                 }
                 catch (Exception ec)
                 {

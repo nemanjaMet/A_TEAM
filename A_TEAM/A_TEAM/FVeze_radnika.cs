@@ -24,6 +24,7 @@ namespace A_TEAM
             InitializeComponent();
         }
 
+        // --- Dodavanje veze izmedju radnika ---
         private void BtnDodajVezu_Click(object sender, EventArgs e)
         {
             // Provera validnosti podataka
@@ -56,10 +57,11 @@ namespace A_TEAM
             // --- Kreiranje veze u bazi izmedju radnika ---
             try
             {
+                // --- Upit za dodavanje veze ---
                 client.Cypher.Match("(radnik1:Radnik)", "(radnik2:Radnik)")
                 .Where((Radnik radnik1) => radnik1.Ime == osoba1)
                 .AndWhere((Radnik radnik2) => radnik2.Ime == osoba2)
-                .Create("radnik1-[:" + veza + "]->radnik2")
+                .CreateUnique("radnik1-[:" + veza + "]->radnik2")
                 .ExecuteWithoutResults();
 
                 MessageBox.Show("Uspesno kreirana veza!");
@@ -71,12 +73,14 @@ namespace A_TEAM
 
         }
 
+        // --- Popunjavanje listi radnicima ---
         private void FVeze_radnika_Shown(object sender, EventArgs e)
         {
             try
             {
                 IList<Radnik> listaRadnika = new List<Radnik>();
 
+                // --- Upit za vracanje radnika ---
                 listaRadnika = client.Cypher
                 .Match("(radnik:Radnik)")
                 .Return(radnik => radnik.As<Radnik>())

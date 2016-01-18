@@ -172,6 +172,14 @@ namespace A_TEAM
                 this.TbImeProjekta.Text = "";
 
                 MessageBox.Show("Uspesno kreiran novi Projekat!");
+
+                // ************ ALGORITAM ************** //
+              /*  IList<string> testLista = new List<string>();
+                testLista = client.Cypher
+                .Match("(radnik:Radnik)")
+                .Where((Radnik radnik) => radnik.id == "")
+                .Return(radnik => radnik.Labels())
+                .Results;*/
                 
             }
             catch (Exception ec)
@@ -291,6 +299,31 @@ namespace A_TEAM
             FVeza_Radnik_Razvoj fvrr = new FVeza_Radnik_Razvoj();
             fvrr.client = client;
             fvrr.ShowDialog();
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+
+            try
+            {
+                Radnik vraceniRadnik = new Radnik();
+
+                // --- Vraca jedan element ---
+                vraceniRadnik = client.Cypher
+               .Match("(radnik:Radnik)")
+               .Where((Radnik radnik) => radnik.id == "5")
+               .Return(radnik => radnik.As<Radnik>())
+               .Results.First();
+
+                // --- 
+                CypherQuery query = new CypherQuery("start n=node:Radnik(id:1) match n-[r:SLAZE_SE*]->radnik return radnik", new Dictionary<string, object>(), CypherResultMode.Set);
+                var radnici = ((IRawGraphClient)client).ExecuteGetCypherResults<Radnik>(query).ToList();
+
+            }
+            catch (Exception ec)
+            {
+                MessageBox.Show(ec.ToString());
+            }
         }
 
         
