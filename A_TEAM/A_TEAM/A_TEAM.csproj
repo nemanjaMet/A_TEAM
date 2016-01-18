@@ -52,35 +52,91 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Adding_Person.cs">
+    <Compile Include="FBrisanje_Veza.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Adding_Person.Designer.cs">
-      <DependentUpon>Adding_Person.cs</DependentUpon>
+    <Compile Include="FBrisanje_Veza.Designer.cs">
+      <DependentUpon>FBrisanje_Veza.cs</DependentUpon>
     </Compile>
-    <Compile Include="DomainModel\Worker.cs" />
-    <Compile Include="FDevelopment.cs">
+    <Compile Include="FBrisanje_Projekta.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FDevelopment.Designer.cs">
-      <DependentUpon>FDevelopment.cs</DependentUpon>
+    <Compile Include="FBrisanje_Projekta.Designer.cs">
+      <DependentUpon>FBrisanje_Projekta.cs</DependentUpon>
     </Compile>
-    <Compile Include="Form1.cs">
+    <Compile Include="FBrisanje_Radnika.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Form1.Designer.cs">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <Compile Include="FBrisanje_Radnika.Designer.cs">
+      <DependentUpon>FBrisanje_Radnika.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FBrisanje_Razvoja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FBrisanje_Razvoja.Designer.cs">
+      <DependentUpon>FBrisanje_Razvoja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FDodavanje_Radnika.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FDodavanje_Radnika.Designer.cs">
+      <DependentUpon>FDodavanje_Radnika.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DomainModel\Razvoj.cs" />
+    <Compile Include="DomainModel\Projekat.cs" />
+    <Compile Include="DomainModel\Radnik.cs" />
+    <Compile Include="FDodavanje_Razvoja.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FDodavanje_Razvoja.Designer.cs">
+      <DependentUpon>FDodavanje_Razvoja.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FNovi_Projekat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FNovi_Projekat.Designer.cs">
+      <DependentUpon>FNovi_Projekat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FVeza_Radnik_Razvoj.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FVeza_Radnik_Razvoj.Designer.cs">
+      <DependentUpon>FVeza_Radnik_Razvoj.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FVeze_radnika.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FVeze_radnika.Designer.cs">
+      <DependentUpon>FVeze_radnika.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Adding_Person.resx">
-      <DependentUpon>Adding_Person.cs</DependentUpon>
+    <EmbeddedResource Include="FBrisanje_Veza.resx">
+      <DependentUpon>FBrisanje_Veza.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FDevelopment.resx">
-      <DependentUpon>FDevelopment.cs</DependentUpon>
+    <EmbeddedResource Include="FBrisanje_Projekta.resx">
+      <DependentUpon>FBrisanje_Projekta.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Form1.resx">
-      <DependentUpon>Form1.cs</DependentUpon>
+    <EmbeddedResource Include="FBrisanje_Radnika.resx">
+      <DependentUpon>FBrisanje_Radnika.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FBrisanje_Razvoja.resx">
+      <DependentUpon>FBrisanje_Razvoja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FDodavanje_Radnika.resx">
+      <DependentUpon>FDodavanje_Radnika.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FDodavanje_Razvoja.resx">
+      <DependentUpon>FDodavanje_Razvoja.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FNovi_Projekat.resx">
+      <DependentUpon>FNovi_Projekat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FVeza_Radnik_Razvoj.resx">
+      <DependentUpon>FVeza_Radnik_Razvoj.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FVeze_radnika.resx">
+      <DependentUpon>FVeze_radnika.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -13,12 +13,12 @@ using A_TEAM.DomainModel;
 
 namespace A_TEAM
 {
-    public partial class Adding_Person : Form
+    public partial class FDodavanje_Radnika : Form
     {
 
         public GraphClient client;
 
-        public Adding_Person()
+        public FDodavanje_Radnika()
         {
             InitializeComponent();
         }
@@ -47,6 +47,8 @@ namespace A_TEAM
                     lv1.SubItems.Add(znanjePJ);
                     LvPJ_Z.Items.Add(lv1);
 
+                    CbProgrammingLanguages.SelectedItem = null;
+                    CbZnanjePJ.SelectedItem = null;
                     CbProgrammingLanguages.Text = "Programski jezik";
                     CbZnanjePJ.Text = "Znanje";
                 }
@@ -70,12 +72,14 @@ namespace A_TEAM
             }
         }
 
+        // --- Ubacivanje Radnika u bazi ---
         private void BtnSubmitData_Click(object sender, EventArgs e)
         {
             string ime = this.TbIme.Text;
             string prezime = this.TbPrezime.Text;
             string adresa = this.TbAdresa.Text;
             string datumRodjenja = this.DatePicker.Text;
+            string obrazovanje = this.TbObrazovanje.Text;
 
             // --- Provera da li postoje prazni textBoxovi
             if (String.IsNullOrWhiteSpace(ime))
@@ -91,6 +95,10 @@ namespace A_TEAM
             else if (String.IsNullOrWhiteSpace(adresa))
             {
                 MessageBox.Show("Unesi adresu!");
+            }
+            else if (String.IsNullOrWhiteSpace(obrazovanje))
+            {
+                MessageBox.Show("Unesi obrazovanje!");
             }
 
             // --- Preciscavanje blanko znaka ----
@@ -109,48 +117,41 @@ namespace A_TEAM
             // ---- Rad sa bazom (ubacivanje podataka) ---
             try
             {
-                Worker worker = new Worker();
-
-                // ********* NECEMO OVAKO ********* //
-                string maxId = getMaxId();
-                try
+                // --- Kreiramo ID za radnika ----
+                string idRadnika = getMaxId();
+                if (idRadnika == "null")
                 {
-                    int mId = Int32.Parse(maxId);
-                    worker.id = (mId++).ToString();
+                    return;
                 }
-                catch (Exception exception)
+
+                Radnik noviRadnik = new Radnik();
+                //noviRadnik.id = idRadnika;
+                noviRadnik.id = idRadnika;
+                noviRadnik.Ime = ime;
+                noviRadnik.Prezime = prezime;
+                noviRadnik.Adresa = adresa;
+                noviRadnik.Datum_Rodjenja = datumRodjenja;
+                noviRadnik.Iskustvo = lista;
+                noviRadnik.Obrazovanje = obrazovanje;
+
+                // --- Kreiranje radnika u bazi (za isti ID, pravi duplikate) ---
+                /*client.Cypher
+                .Create("(radnik:Radnik {noviRadnik})")
+                .WithParam("noviRadnik", noviRadnik)
+                .ExecuteWithoutResults();*/
+
+                // --- Kreiranje radnika ukoliko isti ne postoji u bazi ---
+                // NEMA FEEDBACK UKOLIKO ISTI ID POSTOJI
+                client.Cypher
+                .Merge("(radnik:Radnik { id: {id} })")
+                .OnCreate()
+                .Set("radnik = {noviRadnik}")
+                .WithParams(new
                 {
-                    worker.id = "";
-                }
-                // **************************** //
-
-                worker.ime = ime;
-                worker.prezime = prezime;
-                worker.adresa = adresa;
-                worker.datumRodjenja = datumRodjenja;
-                worker.jeziciZnanje = lista;
-
-                /* var jsonWorker = Newtonsoft.Json.JsonConvert.SerializeObject(worker);
-                 client.Cypher
-                     .Create("(worker:Worker {jsonWorker})")
-                     .WithParam("jsonWorker", jsonWorker)
-                     .ExecuteWithoutResults();*/
-
-                Dictionary<string, object> queryDict = new Dictionary<string, object>();
-                queryDict.Add("Ime", worker.ime);
-                queryDict.Add("Prezime", worker.prezime);
-                queryDict.Add("Adresa", worker.adresa);
-                queryDict.Add("Datum_rodjenja", worker.datumRodjenja);
-                queryDict.Add("Programski_jezici_Znanje", worker.jeziciZnanje);
-
-                var query = new Neo4jClient.Cypher.CypherQuery("CREATE (n:Worker {id:'" + worker.id + "', Ime:'" + worker.ime
-                                                            + "', Prezime:'" + worker.prezime + "', Adresa:'" + worker.adresa
-
-                                                            + "', Programski_jezici_Znanje:'" + Newtonsoft.Json.JsonConvert.SerializeObject(worker.jeziciZnanje) + "', Datum_rodjenja:'" + worker.datumRodjenja + "'}) return n",
-                                                            queryDict, CypherResultMode.Set);
-                
-                // --- Execute Cypher without feedback ---
-                ((IRawGraphClient)client).ExecuteCypher(query);
+                    id = noviRadnik.id,
+                    noviRadnik
+                })
+                .ExecuteWithoutResults();
 
             }
             catch (Exception ec)
@@ -162,18 +163,34 @@ namespace A_TEAM
             this.Dispose();
         }
 
-
-        // !!! COPY PASTO BOGDANOVIC !!! NE ZNAM KAKO RADI !!!
+        // --- Vraca najveci ID Radnika ---
         private String getMaxId()
         {
-            var query = new Neo4jClient.Cypher.CypherQuery("start n=node(*) where has(n.id) return max(n.id)",
-                                                            new Dictionary<string, object>(), CypherResultMode.Set);
+            string maxId = "";
+            try
+            {
+                // --- Upit za poslednji ID Radnika ubacen u bazi ---
+                 maxId = client.Cypher
+                .Match("(n:Radnik)")
+                .Return(() => Return.As<string>("max(n.id)"))
+                .Results
+                .Single();
 
-            String maxId = ((IRawGraphClient)client).ExecuteGetCypherResults<String>(query).ToList().FirstOrDefault();
+                // --- Ukoliko ne postoji ni jedan radnik u bazi ---
+                 if (String.IsNullOrWhiteSpace(maxId))
+                 {
+                     maxId = "0";
+                 }
 
-            return maxId;
+                 maxId = (Convert.ToInt64(maxId) + 1).ToString();
+                 return maxId;
+            }
+            catch (Exception ec)
+            {
+                MessageBox.Show(ec.ToString());
+                return maxId = "null";
+            }
         }
-
 
     }
 }

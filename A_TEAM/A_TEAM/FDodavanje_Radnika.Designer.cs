@@ -1,6 +1,6 @@
 ﻿namespace A_TEAM
 {
-    partial class Adding_Person
+    partial class FDodavanje_Radnika
     {
         /// <summary>
         /// Required designer variable.
@@ -44,6 +44,8 @@
             this.BtnSubmitPJ = new System.Windows.Forms.Button();
             this.BtnDeletePJFromList = new System.Windows.Forms.Button();
             this.BtnSubmitData = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
+            this.TbObrazovanje = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -215,11 +217,32 @@
             this.BtnSubmitData.UseVisualStyleBackColor = true;
             this.BtnSubmitData.Click += new System.EventHandler(this.BtnSubmitData_Click);
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(33, 207);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(88, 16);
+            this.label5.TabIndex = 14;
+            this.label5.Text = "Obrazovanje:";
+            // 
+            // TbObrazovanje
+            // 
+            this.TbObrazovanje.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TbObrazovanje.Location = new System.Drawing.Point(36, 240);
+            this.TbObrazovanje.Multiline = true;
+            this.TbObrazovanje.Name = "TbObrazovanje";
+            this.TbObrazovanje.Size = new System.Drawing.Size(279, 88);
+            this.TbObrazovanje.TabIndex = 15;
+            // 
             // Adding_Person
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(675, 416);
+            this.Controls.Add(this.TbObrazovanje);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.BtnSubmitData);
             this.Controls.Add(this.BtnDeletePJFromList);
             this.Controls.Add(this.BtnSubmitPJ);
@@ -259,5 +282,7 @@
         private System.Windows.Forms.Button BtnSubmitPJ;
         private System.Windows.Forms.Button BtnDeletePJFromList;
         private System.Windows.Forms.Button BtnSubmitData;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox TbObrazovanje;
     }
 }

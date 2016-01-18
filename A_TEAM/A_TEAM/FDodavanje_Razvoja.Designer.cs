@@ -1,6 +1,6 @@
 ﻿namespace A_TEAM
 {
-    partial class FDevelopment
+    partial class FDodavanje_Razvoja
     {
         /// <summary>
         /// Required designer variable.
@@ -75,7 +75,7 @@
             // BtnSubmitData
             // 
             this.BtnSubmitData.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnSubmitData.Location = new System.Drawing.Point(50, 351);
+            this.BtnSubmitData.Location = new System.Drawing.Point(50, 256);
             this.BtnSubmitData.Name = "BtnSubmitData";
             this.BtnSubmitData.Size = new System.Drawing.Size(276, 28);
             this.BtnSubmitData.TabIndex = 4;
@@ -83,17 +83,17 @@
             this.BtnSubmitData.UseVisualStyleBackColor = true;
             this.BtnSubmitData.Click += new System.EventHandler(this.BtnSubmitData_Click);
             // 
-            // FDevelopment
+            // FDodavanje_Razvoja
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(367, 391);
+            this.ClientSize = new System.Drawing.Size(367, 300);
             this.Controls.Add(this.BtnSubmitData);
             this.Controls.Add(this.TbOpis);
             this.Controls.Add(this.TbDevelopmentName);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "FDevelopment";
+            this.Name = "FDodavanje_Razvoja";
             this.Text = "FDevelopment";
             this.ResumeLayout(false);
             this.PerformLayout();
