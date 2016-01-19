@@ -49,6 +49,7 @@ namespace A_TEAM.DomainModel
                          N = n.As<Radnik>(),
                          M = m.As<Radnik>(),
                          R = r.As<RelationshipInstance<object>>()
+
                         });
 
                         // --- Popunjavamo liste za veze sa radnicima ---
@@ -255,14 +256,16 @@ namespace A_TEAM.DomainModel
                     lv1.SubItems.Add(r.Adresa);
                     lv1.SubItems.Add(r.Datum_Rodjenja);
                     lv1.SubItems.Add(r.Obrazovanje);
+                    lv1.SubItems.Add(r.Iskustvo);
 
-                    string iskustvo = "";
+                    // !!! Nije vise lista !!!
+                   /* string iskustvo = "";
                     foreach (string s in r.Iskustvo)
                     {
                         iskustvo += s + ", ";
                     }
                     iskustvo = iskustvo.Remove(iskustvo.Length - 2);
-                    lv1.SubItems.Add(iskustvo);
+                    lv1.SubItems.Add(iskustvo);*/
 
                     LvSpisakRadnika.Items.Add(lv1);
                 }

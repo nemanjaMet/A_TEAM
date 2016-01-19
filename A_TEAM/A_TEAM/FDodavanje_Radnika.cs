@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Neo4jClient;
 using Neo4jClient.Cypher;
 using A_TEAM.DomainModel;
+using System.Text.RegularExpressions; // Za preciscavanje teksta
 
 namespace A_TEAM
 {
@@ -102,18 +103,18 @@ namespace A_TEAM
             }
 
             // --- Preciscavanje blanko znaka ----
-            ime = ime.Trim();
-            prezime = prezime.Trim();
-            adresa = adresa.Trim();
+            ime = checkString(ime);
+            prezime = checkString(prezime);
+            adresa = checkString(adresa);
 
 
             // --- Izvlacimo podatke iz listView-a ----
-            List<string> lista = new List<string>();
+            string iskustvo = "";
             foreach (ListViewItem lvi in LvPJ_Z.Items)
             {
-                lista.Add(lvi.Text + " " + lvi.SubItems[1].Text);
+                iskustvo += lvi.Text + " " + lvi.SubItems[1].Text + ",";
             }
-
+            iskustvo = iskustvo.TrimEnd(',');
             // ---- Rad sa bazom (ubacivanje podataka) ---
             try
             {
@@ -131,7 +132,7 @@ namespace A_TEAM
                 noviRadnik.Prezime = prezime;
                 noviRadnik.Adresa = adresa;
                 noviRadnik.Datum_Rodjenja = datumRodjenja;
-                noviRadnik.Iskustvo = lista;
+                noviRadnik.Iskustvo = iskustvo;
                 noviRadnik.Obrazovanje = obrazovanje;
 
                 // --- Kreiranje radnika u bazi (za isti ID, pravi duplikate) ---
@@ -180,6 +181,8 @@ namespace A_TEAM
                  if (String.IsNullOrWhiteSpace(maxId))
                  {
                      maxId = "0";
+                     // --- + Upiti koji se samo jednom izvrsavaju + ---
+                     // --- Akrivni, Zavrseni i Projekti Na_cekanju
                  }
 
                  maxId = (Convert.ToInt64(maxId) + 1).ToString();
@@ -191,6 +194,19 @@ namespace A_TEAM
                 return maxId = "null";
             }
         }
+
+        // --- Funkcija za preciscavanje teksta ---
+        private string checkString(string stringToCheck)
+        {
+            stringToCheck = Regex.Replace(stringToCheck, @"\t|\r", " ");
+            stringToCheck = Regex.Replace(stringToCheck, @"( \n){2,}", "\n");
+            stringToCheck = Regex.Replace(stringToCheck, " {2,}", " ");
+
+            stringToCheck = stringToCheck.Trim();
+
+            return stringToCheck;
+        }
+
 
     }
 }

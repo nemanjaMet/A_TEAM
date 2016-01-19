@@ -10,7 +10,8 @@ namespace A_TEAM.DomainModel
     {
         public String Ime { get; set; }
         public String Rok_zavrsetka { get; set; }
-        public List<string> Potrebno_iskustvo { get; set; }
-        public List<string> Potrebni_ljudi_iz_razvoja { get; set; }
+        public String Potrebno_iskustvo { get; set; }
+        public String Potrebni_ljudi_iz_razvoja { get; set; }
+        public String Radnici_angazovani_na_projektu { get; set; }
     }
 }

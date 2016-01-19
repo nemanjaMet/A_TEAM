@@ -38,8 +38,11 @@ namespace A_TEAM
                 {
                     ListViewItem lv1 = new ListViewItem(p.Ime);
                     lv1.SubItems.Add(p.Rok_zavrsetka);
+                    lv1.SubItems.Add(p.Potrebno_iskustvo);
+                    lv1.SubItems.Add(p.Potrebni_ljudi_iz_razvoja);
 
-                    string potrebnoIskustvo = "";
+                    // !!! Nije vise lista !!!
+                    /*string potrebnoIskustvo = "";
                     foreach (string s in p.Potrebno_iskustvo)
                     {
                         potrebnoIskustvo += p + ", ";
@@ -53,7 +56,7 @@ namespace A_TEAM
                         PotrebniLjudiIzRazvoja += p + ", ";
                     }
                     PotrebniLjudiIzRazvoja = PotrebniLjudiIzRazvoja.Remove(PotrebniLjudiIzRazvoja.Length - 2);
-                    lv1.SubItems.Add(potrebnoIskustvo);
+                    lv1.SubItems.Add(potrebnoIskustvo);*/
 
                     LvSpisakProjekata.Items.Add(lv1);
                 }
