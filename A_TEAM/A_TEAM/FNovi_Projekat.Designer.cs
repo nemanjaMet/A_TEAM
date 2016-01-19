@@ -31,6 +31,7 @@
             this.BtnAddPerson = new System.Windows.Forms.Button();
             this.BtnKreirajRazvoj = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.button2 = new System.Windows.Forms.Button();
             this.BtnIzbrisiRazvojIzListe = new System.Windows.Forms.Button();
             this.BtnDodajRazvojUListu = new System.Windows.Forms.Button();
             this.LvRazvojBrojRadnika = new System.Windows.Forms.ListView();
@@ -58,7 +59,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.BtnBrisanjeProjekta = new System.Windows.Forms.Button();
             this.BtnBrisanjeVeza = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -87,6 +87,7 @@
             // 
             // panel1
             // 
+            this.panel1.BackColor = System.Drawing.Color.DarkSeaGreen;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.BtnIzbrisiRazvojIzListe);
@@ -109,6 +110,16 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(612, 410);
             this.panel1.TabIndex = 2;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(70, 334);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 16;
+            this.button2.Text = "TEST";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // BtnIzbrisiRazvojIzListe
             // 
@@ -416,16 +427,6 @@
             this.BtnBrisanjeVeza.Text = "Brisanje veza";
             this.BtnBrisanjeVeza.UseVisualStyleBackColor = true;
             this.BtnBrisanjeVeza.Click += new System.EventHandler(this.BtnBrisanjeVeza_Click);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(70, 334);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 16;
-            this.button2.Text = "TEST";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
             // FNovi_Projekat
             // 

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Neo4jClient;
 using Neo4jClient.Cypher;
 using A_TEAM.DomainModel;
+using System.Text.RegularExpressions; // Za preciscavanje teksta
 
 namespace A_TEAM
 {
@@ -40,6 +41,10 @@ namespace A_TEAM
                 MessageBox.Show("Unesite opis development-a!");
                 return;
             }
+
+            // --- Preciscavamo tekst ---
+            ime = checkString(ime);
+            opis = checkString(opis);
 
             Razvoj noviRazvoj = new Razvoj();
             noviRazvoj.Ime = ime;
@@ -73,6 +78,18 @@ namespace A_TEAM
 
             // Zatvaranje forme
             this.Dispose();
+        }
+
+        // --- Funkcija za preciscavanje teksta ---
+        private string checkString(string stringToCheck)
+        {
+            stringToCheck = Regex.Replace(stringToCheck, @"\t|\r", " ");
+            stringToCheck = Regex.Replace(stringToCheck, @"( \n){2,}", "\n");
+            stringToCheck = Regex.Replace(stringToCheck, " {2,}", " ");
+
+            stringToCheck = stringToCheck.Trim();
+
+            return stringToCheck;
         }
     }
 }

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using Neo4jClient;
 using Neo4jClient.Cypher;
 using A_TEAM.DomainModel;
+using System.Text.RegularExpressions; // Za preciscavanje teksta
 
 namespace A_TEAM
 {
@@ -109,16 +110,18 @@ namespace A_TEAM
             string rokZavrsetka = this.DatePicker.Text;
 
             // --- Izvlacimo podatke iz listView-a ----
-            List<string> lista = new List<string>();
+            string lista = "";
             foreach (ListViewItem lvi in LvPJezikZnanje.Items)
             {
-                lista.Add(lvi.Text + " " + lvi.SubItems[1].Text);
+                lista += lvi.Text + " " + lvi.SubItems[1].Text + ",";
             }
-            List<string> listaRazvojaRadnika = new List<string>();
+            lista.TrimEnd(',');
+            string listaRazvojaRadnika = "";
             foreach (ListViewItem lvi in LvRazvojBrojRadnika.Items)
             {
-                listaRazvojaRadnika.Add(lvi.Text + " " + lvi.SubItems[1].Text);
+                listaRazvojaRadnika += lvi.Text + " " + lvi.SubItems[1].Text + ",";
             }
+            listaRazvojaRadnika = listaRazvojaRadnika.TrimEnd(',');
 
             // --- Provera ispravnosti ---
             if (String.IsNullOrWhiteSpace(imeProjekta))
@@ -131,22 +134,26 @@ namespace A_TEAM
                 MessageBox.Show("Datum kraja roka nije korektan!");
                 return;
             }
-            else if (lista.Count < 1)
+            else if (String.IsNullOrWhiteSpace(lista))
             {
                 MessageBox.Show("Lista potrebnih ljudi sa iskustvom je prazna!");
                 return;
             }
-            else if (listaRazvojaRadnika.Count < 1)
+            else if (String.IsNullOrWhiteSpace(listaRazvojaRadnika))
             {
                 MessageBox.Show("Lista potrebnih ljudi iz razvoja je prazna!");
                 //return;
             }
+
+            // --- Preciscavanje teksta ---
+            imeProjekta = checkString(imeProjekta);
 
             Projekat noviProjekat = new Projekat();
             noviProjekat.Ime = imeProjekta;
             noviProjekat.Rok_zavrsetka = rokZavrsetka;
             noviProjekat.Potrebno_iskustvo = lista;
             noviProjekat.Potrebni_ljudi_iz_razvoja = listaRazvojaRadnika;
+            //noviProjekat.Radnici_angazovani_na_projektu = "IDRadnika Ime Prezime, IDRadnika Ime Prezime,...."
 
             try
             {
@@ -280,6 +287,7 @@ namespace A_TEAM
             }
         }
 
+        // --- Pozivanje nove forme za brisanje veza ---
         private void BtnBrisanjeVeza_Click(object sender, EventArgs e)
         {
             FBrisanje_Veza fbv = new FBrisanje_Veza();
@@ -287,6 +295,7 @@ namespace A_TEAM
             fbv.ShowDialog();
         }
 
+        // --- Pozivanje nove forme za prisanje projekata ---
         private void BtnBrisanjeProjekta_Click(object sender, EventArgs e)
         {
             FBrisanje_Projekta fbp = new FBrisanje_Projekta();
@@ -294,6 +303,7 @@ namespace A_TEAM
             fbp.ShowDialog();
         }
 
+        // --- Pozivanje nove forme za dodavanje veza Radnik-Razvoj ---
         private void button1_Click(object sender, EventArgs e)
         {
             FVeza_Radnik_Razvoj fvrr = new FVeza_Radnik_Razvoj();
@@ -324,6 +334,18 @@ namespace A_TEAM
             {
                 MessageBox.Show(ec.ToString());
             }
+        }
+
+        // --- Funkcija za preciscavanje teksta ---
+        private string checkString(string stringToCheck)
+        {
+            stringToCheck = Regex.Replace(stringToCheck, @"\t|\r", " ");
+            stringToCheck = Regex.Replace(stringToCheck, @"( \n){2,}", "\n");
+            stringToCheck = Regex.Replace(stringToCheck, " {2,}", " ");
+
+            stringToCheck = stringToCheck.Trim();
+
+            return stringToCheck;
         }
 
         

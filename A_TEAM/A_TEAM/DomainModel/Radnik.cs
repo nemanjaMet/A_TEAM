@@ -14,6 +14,6 @@ namespace A_TEAM.DomainModel
         public String Adresa { get; set; }
         public String Datum_Rodjenja { get; set; }
         public String Obrazovanje { get; set; }
-        public List<string> Iskustvo { get; set; } 
+        public String Iskustvo { get; set; } 
     }
 }
