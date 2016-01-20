@@ -154,7 +154,7 @@ namespace A_TEAM
             noviProjekat.Potrebno_iskustvo = lista;
             noviProjekat.Potrebni_ljudi_iz_razvoja = listaRazvojaRadnika;
             //noviProjekat.Radnici_angazovani_na_projektu = "IDRadnika Ime Prezime, IDRadnika Ime Prezime,...."
-
+            
             try
             {
                 // --- Ubacivanje Projekta u bazi (pravi duplikate za isti projekat) ---
@@ -316,19 +316,40 @@ namespace A_TEAM
 
             try
             {
-                Radnik vraceniRadnik = new Radnik();
+                //Radnik vraceniRadnik = new Radnik();
 
                 // --- Vraca jedan element ---
-                vraceniRadnik = client.Cypher
+                /*vraceniRadnik = client.Cypher
                .Match("(radnik:Radnik)")
                .Where((Radnik radnik) => radnik.id == "5")
                .Return(radnik => radnik.As<Radnik>())
-               .Results.First();
+               .Results.First();*/
 
                 // --- 
-                CypherQuery query = new CypherQuery("start n=node:Radnik(id:1) match n-[r:SLAZE_SE*]->radnik return radnik", new Dictionary<string, object>(), CypherResultMode.Set);
-                var radnici = ((IRawGraphClient)client).ExecuteGetCypherResults<Radnik>(query).ToList();
+                //CypherQuery query = new CypherQuery("MATCH (a:Radnik ) where not (a)-[:RADI_NA]->() RETURN a", new Dictionary<string, object>(), CypherResultMode.Set);
+                //var radnici = ((IRawGraphClient)client).ExecuteGetCypherResults<Radnik>(query).ToList();              
+                
+                // --- Kreiranje veze STATUS za Projekat-Aktivan ---
+                /*client.Cypher.Match("(projekat:Projekat)", "(aktivan:Aktivan)")
+                       .Where((Projekat projekat) => projekat.Ime == "Projekat 1")            
+                       .CreateUnique("projekat-[:STATUS]->aktivan")
+                       .ExecuteWithoutResults();*/
 
+                // --- Kreiranje veze ANGAZOVAN_NA Projekat-Radnik (Sve radnike vezuje za projekat) ---
+                /*client.Cypher.Match("(projekat:Projekat)", "(radnik:Radnik)")
+                       .Where((Projekat projekat) => projekat.Ime == "Projekat 1")
+                       .CreateUnique("projekat-[:ANGAZOVAN_NA]->radnik")
+                       .ExecuteWithoutResults();*/
+
+                // --- Brisanje svih veza od projekta ka bilo cemu ---
+                /*client.Cypher.Match("(projekat:Projekat)-[r]->() ")                      
+                .Delete("r")
+                .ExecuteWithoutResults();*/
+
+                Projekat test = new Projekat("Test", "1/1/2056", "PHP 5,C 4", "", "");
+
+                CSP.tryTest(test,client);
+               
             }
             catch (Exception ec)
             {
@@ -346,6 +367,12 @@ namespace A_TEAM
             stringToCheck = stringToCheck.Trim();
 
             return stringToCheck;
+        }
+
+        // --- Ukljucivanje automatske provere aktivnih projekata (mozda je neki zavrsen) ---
+        private void FNovi_Projekat_Shown(object sender, EventArgs e)
+        {
+            Proveri_aktivne_projekte pap = new Proveri_aktivne_projekte(600);
         }
 
         

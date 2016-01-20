@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CSP.cs" />
     <Compile Include="FBrisanje_Veza.cs">
       <SubType>Form</SubType>
     </Compile>

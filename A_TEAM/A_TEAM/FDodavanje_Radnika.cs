@@ -154,6 +154,8 @@ namespace A_TEAM
                 })
                 .ExecuteWithoutResults();
 
+                MessageBox.Show("Uspesno kreiran radnik!");
+
             }
             catch (Exception ec)
             {

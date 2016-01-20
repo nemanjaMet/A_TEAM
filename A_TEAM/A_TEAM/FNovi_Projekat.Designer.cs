@@ -261,6 +261,7 @@
             "C",
             "C#",
             "C++",
+            "CSS",
             "CShell",
             "Caml",
             "Cobol",
@@ -270,6 +271,7 @@
             "F#",
             "GO!",
             "Haskell",
+            "HTML",
             "Java",
             "JavaScript",
             "Lisp",
@@ -469,6 +471,7 @@
             this.Name = "FNovi_Projekat";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Shown += new System.EventHandler(this.FNovi_Projekat_Shown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);
