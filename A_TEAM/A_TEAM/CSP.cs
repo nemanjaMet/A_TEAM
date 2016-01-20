@@ -11,8 +11,24 @@ namespace A_TEAM
 {
     public  class CSP
     {
-        public static bool tryTest(Projekat novi,GraphClient client)
+        public static List<Radnik> tryTest(Projekat novi,GraphClient client)
         {
+            string[] razvojIbrojLjudi = novi.Potrebni_ljudi_iz_razvoja.Split(',');
+            int ukupanBroj = 0;
+            for(int i = 0 ; i < razvojIbrojLjudi.Length ; i++)
+            {
+                string[] split = razvojIbrojLjudi[i].Split(' ');
+                int parsovanBroj = 0;
+                bool done = Int32.TryParse(split[1], out parsovanBroj);
+                if(done)
+                {
+                    ukupanBroj += parsovanBroj;
+                }
+            }
+            if(ukupanBroj == 0)
+            {
+                return null;
+            }
 
             string[] jezikIznanje = novi.Potrebno_iskustvo.Split(',');
             // ide r.Iskustvo =~ "splited[0] [splited[1]...10]" + or 
@@ -27,21 +43,77 @@ namespace A_TEAM
                 bool done = Int32.TryParse(splited[1] , out outInt);
                 if(!done)
                 {
-                    return false;
+                    return null;
                 }
-                var range = Enumerable.Range(outInt,11-outInt).ToArray();
-                var result = string.Join(" ", range);
+                string result = "";
+                if(outInt == 10)
+                {
+                    result = "10";
+                }
+                else
+                {
+                    var range = Enumerable.Range(outInt, 10 - outInt).ToArray();
+                    result = string.Join(" ", range);
+                }
+                
                 //.*[PHP C] [1 2 3 4 5 6].*
-                query += "r.Iskustvo =~ \".*" + splited[0]+"."+"["+ result +"].*" + " or ";
+                query += "r.Iskustvo =~ \".*" + splited[0]+"."+"["+ result +"].*\"" + " or ";
             }
             query = query.TrimEnd("or ".ToCharArray());
             query += " return r";
+
             CypherQuery query1 = new CypherQuery(query, new Dictionary<string, object>(), CypherResultMode.Set);
+            CypherQuery query2 = new CypherQuery(query+".id", new Dictionary<string, object>(), CypherResultMode.Set);
 
-            List<Radnik> listaRadnika = ((IRawGraphClient)client).ExecuteGetCypherResults<Radnik>(query1).ToList(); 
+            List<Radnik> listaRadnika = ((IRawGraphClient)client).ExecuteGetCypherResults<Radnik>(query1).ToList();
+            int ukupnoRadnika = listaRadnika.Count;
+            int trecina = ukupnoRadnika / 3;
+            var IDs = ((IRawGraphClient)client).ExecuteGetCypherResults<string>(query2).ToList();
+            string idPattern = "[" + string.Join(" ", IDs) + "]";
+
+            List<Radnik> izabrani = new List<Radnik>();
             //napokon imamo listu radnika sa znanjima
+            for (int i = listaRadnika.Count-1; i >= 0; i--)
+            {
+                string id = listaRadnika[i].id;
+                
+                query = "match (n:Radnik)-[r:NE_SLAZE_SE]->(m:Radnik) where n.id=~\"" + idPattern + "\"" + "and m.id=\"" + id + "\" return count(n)";
+                CypherQuery query3 = new CypherQuery(query, new Dictionary<string, object>(), CypherResultMode.Set);
+                int broj = ((IRawGraphClient)client).ExecuteGetCypherResults<int>(query3).Single();
+                if (broj > trecina)
+                {
+                    listaRadnika.RemoveAt(i);
+                }
+                if(broj == 0)
+                {
+                    query = "match (n:Radnik)-[r:SLAZE_SE]->(m:Radnik) where n.id=~\"" + id + "\" return m";
+                    CypherQuery query4 = new CypherQuery(query, new Dictionary<string, object>(), CypherResultMode.Set);
+                    List<Radnik> friends = ((IRawGraphClient)client).ExecuteGetCypherResults<Radnik>(query4).ToList();
+                    if (izabrani.Count + friends.Count < ukupanBroj)
+                    {
+                        izabrani.Add(listaRadnika[i]);
+                        izabrani = izabrani.Concat<Radnik>(friends).ToList();
+                    }
+                    else
+                    {
+                        int koliko = ukupanBroj - izabrani.Count;
+                        for(int j = 0 ; j < koliko-1; j ++)
+                        {
+                            izabrani.Add(friends[j]);
+                        }
+                    }
+                }
+                //client.Cypher.Match("(projekat:Projekat)", "(radnik:Radnik)")
+                //       .Where((Projekat projekat) => projekat.Ime == novi.Ime)
+                //       .AndWhere((Radnik radnik) => radnik.id == )
+                //       .CreateUnique("projekat<-[:ANGAZOVAN_NA]-radnik")
+                //       .ExecuteWithoutResults();
+            }
+            //
+            //query = "match (n:Radnik)-[r:SLAZE_SE]->(m:Radnik) where n.id=~\"" + id + "\" return m";
+            //CypherQuery query5 = new CypherQuery(query, new Dictionary<string, object>(), CypherResultMode.Set);
 
-            return true;
+                return izabrani;
         }
 
         public static bool createTestData(GraphClient client)

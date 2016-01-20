@@ -64,6 +64,8 @@ namespace A_TEAM
                 .CreateUnique("radnik1-[:" + veza + "]->radnik2")
                 .ExecuteWithoutResults();
 
+
+
                 MessageBox.Show("Uspesno kreirana veza!");
             }
             catch (Exception ec)

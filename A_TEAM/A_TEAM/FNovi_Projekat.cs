@@ -107,8 +107,10 @@ namespace A_TEAM
         private void BtnSubmitDataPoject_Click(object sender, EventArgs e)
         {
             string imeProjekta = this.TbImeProjekta.Text;
-            string rokZavrsetka = this.DatePicker.Text;
-
+            string rokZavrsetka = "";
+            rokZavrsetka += this.DatePicker.Value.Date.Day.ToString() + '.' 
+                + this.DatePicker.Value.Date.Month.ToString() + '.' + this.DatePicker.Value.Date.Year.ToString();
+           
             // --- Izvlacimo podatke iz listView-a ----
             string lista = "";
             foreach (ListViewItem lvi in LvPJezikZnanje.Items)
@@ -346,10 +348,13 @@ namespace A_TEAM
                 .Delete("r")
                 .ExecuteWithoutResults();*/
 
-                Projekat test = new Projekat("Test", "1/1/2056", "PHP 5,C 4", "", "");
-
-                CSP.tryTest(test,client);
-               
+                Projekat test = new Projekat("Test", "1/1/2056", "PHP 5,C 4", "Web 2,Embedded 2", "");
+                List<Radnik> izabranTim = new List<Radnik>();
+                izabranTim = CSP.tryTest(test, client);
+                foreach(Radnik t in izabranTim)
+                {
+                    MessageBox.Show(t.Ime);
+                }
             }
             catch (Exception ec)
             {

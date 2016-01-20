@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace A_TEAM.DomainModel
 {
-    class Radnik
+   public  class Radnik
     {
         public String id { get; set; }
         public String Ime { get; set; }
