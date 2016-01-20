@@ -69,20 +69,7 @@ namespace A_TEAM
                     Ime = noviRazvoj.Ime,
                     noviRazvoj
                 })
-                .ExecuteWithoutResults();*/
-
-                /*var test = client.Cypher
-                    .WithParams(new
-                    {
-                        Ime = noviRazvoj.Ime,
-                        noviRazvoj
-                    })
-                .Merge("(razvoj:Razvoj { Ime: {Ime} })")
-                .OnCreate()
-                .Set("razvoj = {noviRazvoj}")
-                .Return(razvoj => razvoj.As<Razvoj>())
-                .Results
-                .Single();*/
+                .ExecuteWithoutResults();*/               
             
                 Razvoj rez = client.Cypher
                 .Merge("(razvoj:Razvoj { Ime: {Ime} })")

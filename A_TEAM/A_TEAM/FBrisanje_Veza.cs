@@ -258,15 +258,6 @@ namespace A_TEAM.DomainModel
                     lv1.SubItems.Add(r.Obrazovanje);
                     lv1.SubItems.Add(r.Iskustvo);
 
-                    // !!! Nije vise lista !!!
-                   /* string iskustvo = "";
-                    foreach (string s in r.Iskustvo)
-                    {
-                        iskustvo += s + ", ";
-                    }
-                    iskustvo = iskustvo.Remove(iskustvo.Length - 2);
-                    lv1.SubItems.Add(iskustvo);*/
-
                     LvSpisakRadnika.Items.Add(lv1);
                 }
 

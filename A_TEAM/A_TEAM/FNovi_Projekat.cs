@@ -179,14 +179,7 @@ namespace A_TEAM
                 this.TbImeProjekta.Text = "";
 
                 MessageBox.Show("Uspesno kreiran novi Projekat!");
-
-                // ************ ALGORITAM ************** //
-              /*  IList<string> testLista = new List<string>();
-                testLista = client.Cypher
-                .Match("(radnik:Radnik)")
-                .Where((Radnik radnik) => radnik.id == "")
-                .Return(radnik => radnik.Labels())
-                .Results;*/
+              
                 
             }
             catch (Exception ec)
@@ -329,16 +322,18 @@ namespace A_TEAM
                 //CypherQuery query = new CypherQuery("MATCH (a:Radnik ) where not (a)-[:RADI_NA]->() RETURN a", new Dictionary<string, object>(), CypherResultMode.Set);
                 //var radnici = ((IRawGraphClient)client).ExecuteGetCypherResults<Radnik>(query).ToList();              
                 
-                // --- Kreiranje veze STATUS za Projekat-Aktivan ---
-                /*client.Cypher.Match("(projekat:Projekat)", "(aktivan:Aktivan)")
-                       .Where((Projekat projekat) => projekat.Ime == "Projekat 1")            
-                       .CreateUnique("projekat-[:STATUS]->aktivan")
+                 //--- Kreiranje veze STATUS za Projekat-Aktivan ---
+                /*client.Cypher.Match("(projekat1:Projekat)", "(aktivan1:Status_projekta)")
+                       .Where((Projekat projekat1) => projekat1.Ime == "CORI2") 
+                       .AndWhere((Status_projekta aktivan1) => aktivan1.Ime == "Aktivan")
+                       .CreateUnique("projekat1-[:STATUS]->aktivan1")
                        .ExecuteWithoutResults();*/
 
+                
                 // --- Kreiranje veze ANGAZOVAN_NA Projekat-Radnik (Sve radnike vezuje za projekat) ---
                 /*client.Cypher.Match("(projekat:Projekat)", "(radnik:Radnik)")
-                       .Where((Projekat projekat) => projekat.Ime == "Projekat 1")
-                       .CreateUnique("projekat-[:ANGAZOVAN_NA]->radnik")
+                       .Where((Projekat projekat) => projekat.Ime == "CORI2")
+                       .CreateUnique("projekat<-[:ANGAZOVAN_NA]-radnik")
                        .ExecuteWithoutResults();*/
 
                 // --- Brisanje svih veza od projekta ka bilo cemu ---
@@ -346,9 +341,10 @@ namespace A_TEAM
                 .Delete("r")
                 .ExecuteWithoutResults();*/
 
-                Projekat test = new Projekat("Test", "1/1/2056", "PHP 5,C 4", "", "");
+                //Projekat test = new Projekat("Test", "1/1/2056", "PHP 5,C 4", "", "");
 
-                CSP.tryTest(test,client);
+                //CSP.tryTest(test,client);
+
                
             }
             catch (Exception ec)
@@ -372,7 +368,16 @@ namespace A_TEAM
         // --- Ukljucivanje automatske provere aktivnih projekata (mozda je neki zavrsen) ---
         private void FNovi_Projekat_Shown(object sender, EventArgs e)
         {
-            Proveri_aktivne_projekte pap = new Proveri_aktivne_projekte(600);
+            try
+            {
+                // --- Provera da li medju aktivnim projektima ima neki koji je zavrsen ---
+                // --- Provera ide kada se ukljuci aplikacija, i ako se aplikacija ne iskljucuje na svakih 12h ---
+                Proveri_aktivne_projekte pap = new Proveri_aktivne_projekte(12, client);
+            }
+            catch(Exception ec)
+            {
+                MessageBox.Show(ec.ToString());
+            }
         }
 
         
