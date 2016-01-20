@@ -79,7 +79,7 @@
             this.BtnSubmitData.Name = "BtnSubmitData";
             this.BtnSubmitData.Size = new System.Drawing.Size(276, 28);
             this.BtnSubmitData.TabIndex = 4;
-            this.BtnSubmitData.Text = "Kreiraj development";
+            this.BtnSubmitData.Text = "Kreiraj novi razvoj";
             this.BtnSubmitData.UseVisualStyleBackColor = true;
             this.BtnSubmitData.Click += new System.EventHandler(this.BtnSubmitData_Click);
             // 

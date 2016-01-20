@@ -60,7 +60,7 @@ namespace A_TEAM
 
                 // --- Ubacivanje Razvoja u bazi, ukoliko isti ne postoji ---
                 // NEMA FEEDBACK UKOLIKO ISTI RAZVOJ POSTOJI
-                client.Cypher
+               /* client.Cypher
                 .Merge("(razvoj:Razvoj { Ime: {Ime} })")
                 .OnCreate()
                 .Set("razvoj = {noviRazvoj}")
@@ -69,7 +69,43 @@ namespace A_TEAM
                     Ime = noviRazvoj.Ime,
                     noviRazvoj
                 })
-                .ExecuteWithoutResults();
+                .ExecuteWithoutResults();*/
+
+                /*var test = client.Cypher
+                    .WithParams(new
+                    {
+                        Ime = noviRazvoj.Ime,
+                        noviRazvoj
+                    })
+                .Merge("(razvoj:Razvoj { Ime: {Ime} })")
+                .OnCreate()
+                .Set("razvoj = {noviRazvoj}")
+                .Return(razvoj => razvoj.As<Razvoj>())
+                .Results
+                .Single();*/
+            
+                Razvoj rez = client.Cypher
+                .Merge("(razvoj:Razvoj { Ime: {Ime} })")
+                .OnCreate()
+                .Set("razvoj = {noviRazvoj}")
+                .WithParams(new
+                {
+                    Ime = noviRazvoj.Ime,
+                    noviRazvoj
+                })
+                .Return(razvoj => razvoj.As<Razvoj>())
+                .Results.Single();
+
+                if (noviRazvoj.Ime == rez.Ime && noviRazvoj.Opis == rez.Opis)
+                {
+                    MessageBox.Show("Uspesno kreiran razvoj!");
+                }
+                else
+                {
+                    MessageBox.Show("Takav razvoj vec postoji!");
+                    return;
+                }
+
             }
             catch (Exception ec)
             {

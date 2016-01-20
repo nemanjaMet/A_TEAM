@@ -253,12 +253,45 @@
             this.CbProgramskiJezik.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CbProgramskiJezik.FormattingEnabled = true;
             this.CbProgramskiJezik.Items.AddRange(new object[] {
+            "Ada",
+            "Assembly",
+            "ALGOL",
+            "Bash",
+            "BASIC",
             "C",
             "C#",
             "C++",
+            "CSS",
+            "CShell",
+            "Caml",
+            "Cobol",
+            "CUDA",
+            "Delphi",
+            "Fortran",
+            "F#",
+            "GO!",
+            "Haskell",
+            "HTML",
             "Java",
             "JavaScript",
-            "PHP"});
+            "Lisp",
+            "Lua",
+            "MATLAB",
+            "Object-C",
+            "Object-Pascal",
+            "Object-Lisp",
+            "Python",
+            "Pascal",
+            "Perl",
+            "PHP",
+            "PL/SQL",
+            "PostScript",
+            "PowerShell",
+            "Ruby",
+            "Rust",
+            "VisualBasic",
+            "SQL",
+            "Smalltalk"});
             this.CbProgramskiJezik.Location = new System.Drawing.Point(393, 32);
             this.CbProgramskiJezik.Name = "CbProgramskiJezik";
             this.CbProgramskiJezik.Size = new System.Drawing.Size(121, 24);
@@ -438,6 +471,7 @@
             this.Name = "FNovi_Projekat";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Shown += new System.EventHandler(this.FNovi_Projekat_Shown);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel2.ResumeLayout(false);

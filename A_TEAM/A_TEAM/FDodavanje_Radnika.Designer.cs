@@ -124,12 +124,45 @@
             this.CbProgrammingLanguages.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.CbProgrammingLanguages.FormattingEnabled = true;
             this.CbProgrammingLanguages.Items.AddRange(new object[] {
+            "Ada",
+            "ALGOL",
+            "Assembly",
+            "Bash",
+            "BASIC",
             "C",
             "C#",
             "C++",
+            "Caml",
+            "Cobol",
+            "CShell",
+            "CSS",
+            "CUDA",
+            "Delphi",
+            "F#",
+            "Fortran",
+            "GO!",
+            "Haskell",
+            "HTML",
             "Java",
             "JavaScript",
-            "PHP"});
+            "Lisp",
+            "Lua",
+            "MATLAB",
+            "Object-C",
+            "Object-Lisp",
+            "Object-Pascal",
+            "Pascal",
+            "Perl",
+            "PHP",
+            "PL/SQL",
+            "PostScript",
+            "PowerShell",
+            "Python",
+            "Ruby",
+            "Rust",
+            "Smalltalk",
+            "SQL",
+            "VisualBasic"});
             this.CbProgrammingLanguages.Location = new System.Drawing.Point(412, 30);
             this.CbProgrammingLanguages.Name = "CbProgrammingLanguages";
             this.CbProgrammingLanguages.Size = new System.Drawing.Size(143, 24);
@@ -236,7 +269,7 @@
             this.TbObrazovanje.Size = new System.Drawing.Size(279, 88);
             this.TbObrazovanje.TabIndex = 15;
             // 
-            // Adding_Person
+            // FDodavanje_Radnika
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -257,7 +290,7 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Name = "Adding_Person";
+            this.Name = "FDodavanje_Radnika";
             this.Text = "Adding_Person";
             this.ResumeLayout(false);
             this.PerformLayout();

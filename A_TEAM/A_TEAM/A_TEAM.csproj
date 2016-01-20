@@ -52,6 +52,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CSP.cs" />
+    <Compile Include="DomainModel\Status_projekta.cs" />
     <Compile Include="FBrisanje_Veza.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -111,6 +113,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proveri_aktivne_projekte.cs" />
     <EmbeddedResource Include="FBrisanje_Veza.resx">
       <DependentUpon>FBrisanje_Veza.cs</DependentUpon>
     </EmbeddedResource>
