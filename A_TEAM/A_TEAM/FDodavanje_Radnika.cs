@@ -183,8 +183,25 @@ namespace A_TEAM
                  if (String.IsNullOrWhiteSpace(maxId))
                  {
                      maxId = "0";
+
                      // --- + Upiti koji se samo jednom izvrsavaju + ---
-                     // --- Akrivni, Zavrseni i Projekti Na_cekanju
+                     // --- Aktivni, Zavrseni i Projekti Na_cekanju
+                     string[] statusi = { "Aktivan", "Zavrsen", "Na_cekanju" };
+                     Status_projekta sp = new Status_projekta();
+                     foreach (string s in statusi)
+                     {
+                         sp.Ime = s;
+                         client.Cypher
+                        .Merge("(status_projekta:Status_projekta { Ime: {Ime} })")
+                        .OnCreate()
+                        .Set("status_projekta = {sp}")
+                        .WithParams(new
+                        {
+                            Ime = sp.Ime,
+                            sp
+                        })
+                        .ExecuteWithoutResults();
+                     }
                  }
 
                  maxId = (Convert.ToInt64(maxId) + 1).ToString();

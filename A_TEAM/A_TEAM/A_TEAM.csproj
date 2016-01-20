@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CSP.cs" />
+    <Compile Include="DomainModel\Status_projekta.cs" />
     <Compile Include="FBrisanje_Veza.cs">
       <SubType>Form</SubType>
     </Compile>
