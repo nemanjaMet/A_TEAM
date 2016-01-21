@@ -54,6 +54,7 @@ namespace A_TEAM.DomainModel
 
                         // --- Popunjavamo liste za veze sa radnicima ---
                         var res = query.Results;
+                        
                         foreach (var item in res.ToList())
                         {
                             ListViewItem lv = new ListViewItem(item.M.id);

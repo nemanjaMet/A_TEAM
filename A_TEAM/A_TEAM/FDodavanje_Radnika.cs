@@ -79,7 +79,10 @@ namespace A_TEAM
             string ime = this.TbIme.Text;
             string prezime = this.TbPrezime.Text;
             string adresa = this.TbAdresa.Text;
-            string datumRodjenja = this.DatePicker.Text;
+            string datumRodjenja = "";
+            datumRodjenja += this.DatePicker.Value.Date.Day.ToString() + '.'
+                + this.DatePicker.Value.Date.Month.ToString() + '.' + this.DatePicker.Value.Date.Year.ToString();
+            
             string obrazovanje = this.TbObrazovanje.Text;
 
             // --- Provera da li postoje prazni textBoxovi
